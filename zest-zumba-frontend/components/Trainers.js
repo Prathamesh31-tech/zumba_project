@@ -47,14 +47,14 @@ export default function Trainers() {
         "Certified Zumba trainer with 6+ years of experience. Specializes in high-energy cardio sessions.",
     },
     {
-      name: "Rohit Sharma",
+      name: "Mohit Sharma",
       image: "/trainers/trainer2.png",
       specialty: "Dance & Fitness",
       description:
         "Professional dancer and fitness coach. Focuses on dance-based fat loss programs.",
     },
     {
-      name: "Anita Deshmukh",
+      name: "Abhay Deshmukh",
       image: "/trainers/trainer3.png",
       specialty: "Strength & Zumba",
       description:

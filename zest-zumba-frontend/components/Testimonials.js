@@ -6,12 +6,12 @@ export default function Testimonials() {
       image: "/testimonials/test1.png",
     },
     {
-      name: "Amit Deshmukh",
+      name: "megha Ghosh",
       feedback: "Great energy, fun workouts, highly recommend!",
       image: "/testimonials/test2.png",
     },
     {
-      name: "Neha Patil",
+      name: "Amit Deshmukh",
       feedback: "I lost weight and enjoyed every session!",
       image: "/testimonials/test3.png",
     },

@@ -4,7 +4,11 @@ export default function HeroSection() {
       <div className="hero-overlay">
         <h1>Zest Zumba Studio</h1>
         <p>Dance. Sweat. Repeat. Join Our Fun & Energetic Zumba Classes!</p>
-        <button href="#contact">Book Your Class</button>
+        <button>
+          <a style={{ padding: "10px" }} href="#contact">
+            Book Your Appointment
+          </a>
+        </button>
       </div>
     </section>
   );
