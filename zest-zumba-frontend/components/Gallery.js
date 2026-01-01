@@ -11,7 +11,7 @@ export default function Gallery() {
 
   const videos = [
     "https://res.cloudinary.com/dapveboee/video/upload/v1767290259/video1_zvr8tg.mp4",
-    "/https://res.cloudinary.com/dapveboee/video/upload/v1767290248/video2_xduvgd.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767290248/video2_xduvgd.mp4",
   ];
 
   const [showAllImages, setShowAllImages] = useState(false);
