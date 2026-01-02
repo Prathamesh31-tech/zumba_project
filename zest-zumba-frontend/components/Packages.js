@@ -5,25 +5,41 @@ export default function Packages() {
     {
       title: "Beginner",
       price: 1000,
-      features: ["3 classes/week", "Basic Zumba moves"],
+      features: [
+        "3 Classes/Week",
+        "Basic Choreography",
+        "Health Tips",
+        "Community Access",
+      ],
       highlight: false,
     },
     {
-      title: "Intermediate",
+      title: "Pro Dancer",
       price: 1500,
-      features: ["5 classes/week", "Cardio & Zumba"],
-      highlight: true,
+      features: [
+        "5 Classes/Week",
+        "Cardio + Zumba",
+        "Diet Plan Included",
+        "Personal Guide",
+      ],
+      highlight: true, // हे कार्ड वेगळे दिसेल
     },
     {
-      title: "Advanced",
+      title: "Elite",
       price: 2000,
-      features: ["Unlimited classes", "Advanced choreography"],
+      features: [
+        "Unlimited Access",
+        "Advanced Moves",
+        "1-on-1 Session",
+        "Full Merch Kit",
+      ],
       highlight: false,
     },
   ];
 
   return (
-    <section className="section" id="packages">
+    // इथे क्लास नाव 'packages-section' करा
+    <section className="packages-section" id="packages">
       <div className="container text-center">
         <h2>Zumba Packages</h2>
         <p className="section-subtitle">
@@ -31,7 +47,7 @@ export default function Packages() {
         </p>
       </div>
 
-      <div className="container packages-grid">
+      <div className="packages-grid">
         {packages.map((pkg, idx) => (
           <PackageCard key={idx} {...pkg} />
         ))}

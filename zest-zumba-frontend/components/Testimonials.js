@@ -1,39 +1,64 @@
+import React from "react";
 export default function Testimonials() {
   const testimonials = [
     {
       name: "Riya Sharma",
-      feedback: "Amazing Zumba classes! Trainers are very supportive.",
+      feedback: "Amazing Zumba classes! Trainers are supportive.",
       image: "/testimonials/test1.png",
+      role: "Member",
     },
     {
-      name: "megha Ghosh",
+      name: "Megha Ghosh",
       feedback: "Great energy, fun workouts, highly recommend!",
       image: "/testimonials/test2.png",
+      role: "Lover",
     },
     {
       name: "Amit Deshmukh",
       feedback: "I lost weight and enjoyed every session!",
       image: "/testimonials/test3.png",
+      role: "Enthusiast",
+    },
+    // Add more dummy data to test the scroll if needed
+    {
+      name: "Soham Patil",
+      feedback: "Best gym experience ever. Totally worth it.",
+      image: "/testimonials/test1.png",
+      role: "Member",
+    },
+    {
+      name: "Priya Das",
+      feedback: "Music and moves are just perfect!",
+      image: "/testimonials/test2.png",
+      role: "Dancer",
     },
   ];
 
   return (
-    <section className="section" id="testimonials">
-      <div className="container text-center">
-        <h2>Testimonials</h2>
-        <p className="section-subtitle">What our happy Zumba members say 💖</p>
+    <section className="testimonials-section" id="testimonials">
+      <div className="container header-container">
+        <h2>Happy Members</h2>
+        <p className="section-subtitle">Join 100+ happy faces! 💖</p>
       </div>
 
-      <div className="container testimonials-grid">
-        {testimonials.map((t, idx) => (
-          <div key={idx} className="testimonial-card">
-            <div className="testimonial-img">
-              <img src={t.image} alt={t.name} />
+      {/* Marquee Wrapper */}
+      <div className="marquee-wrapper">
+        <div className="marquee-track">
+          {/* We render the list twice to create a seamless infinite loop */}
+          {[...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
+            <div key={idx} className="compact-card">
+              <div className="card-header">
+                <img src={t.image} alt={t.name} className="card-avatar" />
+                <div>
+                  <h4 className="card-name">{t.name}</h4>
+                  <span className="card-role">{t.role}</span>
+                </div>
+              </div>
+              <p className="card-feedback">"{t.feedback}"</p>
+              <div className="card-rating">⭐⭐⭐⭐⭐</div>
             </div>
-            <p className="testimonial-feedback">"{t.feedback}"</p>
-            <h3 className="testimonial-name">{t.name}</h3>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

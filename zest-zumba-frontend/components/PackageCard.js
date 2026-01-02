@@ -1,7 +1,8 @@
 export default function PackageCard({ title, price, features, highlight }) {
   return (
     <div className={`package-card ${highlight ? "popular" : ""}`}>
-      {highlight && <span className="badge">Most Popular</span>}
+      {/* बॅज आता टॉप कॉर्नरला आहे (CSS मध्ये सेट केले आहे) */}
+      {highlight && <span className="badge">Best Value</span>}
 
       <h3>{title}</h3>
       <h2 className="price">₹{price}</h2>
@@ -9,7 +10,10 @@ export default function PackageCard({ title, price, features, highlight }) {
 
       <ul>
         {features.map((feat, idx) => (
-          <li key={idx}>✔ {feat}</li>
+          <li key={idx}>
+            {/* चेक मार्क आयकॉन */}
+            {highlight ? "✨" : "✅"} {feat}
+          </li>
         ))}
       </ul>
 

@@ -4,7 +4,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect screen width
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
@@ -12,27 +11,23 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const menuItems = [
-    "Home",
-    "About",
-    "Trainers",
-    "Packages",
-    "Gallery",
-    "Testimonials",
-    "Achievements",
-    "Contact",
-  ];
+  const menuItems = ["Home", "About", "Packages", "Testimonials", "Contact"];
 
   return (
     <nav>
       <div className="nav-container">
-        <h1>Zest Zumba Studio</h1>
+        {/* Logo */}
+        <div className="logo">
+          Z<span>EST</span>
+        </div>
 
         {/* Menu */}
-        <ul className={isMobile ? (open ? "active" : "") : ""}>
+        <ul className={isMobile && open ? "active" : ""}>
           {menuItems.map((item) => (
             <li key={item}>
-              <a href={`#${item.toLowerCase()}`}>{item}</a>
+              <a href={`#${item.toLowerCase()}`} onClick={() => setOpen(false)}>
+                {item}
+              </a>
             </li>
           ))}
         </ul>
@@ -40,7 +35,7 @@ export default function Navbar() {
         {/* Hamburger */}
         {isMobile && (
           <div className="nav-toggle" onClick={() => setOpen(!open)}>
-            {open ? "✖" : "☰"}
+            {open ? "✕" : "☰"}
           </div>
         )}
       </div>

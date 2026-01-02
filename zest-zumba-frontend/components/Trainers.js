@@ -1,35 +1,24 @@
 import { useState } from "react";
 
-function TrainerCard({ trainer, onClick }) {
-  return (
-    <div className="trainer-card" onClick={() => onClick(trainer)}>
-      <div className="trainer-img">
-        <img src={trainer.image} alt={trainer.name} />
-      </div>
-      <div className="trainer-content">
-        <h3>{trainer.name}</h3>
-        <p>{trainer.specialty}</p>
-      </div>
-    </div>
-  );
-}
-
 function TrainerPopup({ trainer, onClose }) {
   if (!trainer) return null;
 
   return (
-    <div className="popup-overlay">
-      <div className="popup-card">
+    <div className="popup-overlay" onClick={onClose}>
+      <div className="popup-card" onClick={(e) => e.stopPropagation()}>
         <span className="popup-close" onClick={onClose}>
           ✖
         </span>
-
-        <img src={trainer.image} alt={trainer.name} />
-
-        <h2>{trainer.name}</h2>
-        <h4>{trainer.specialty}</h4>
-
-        <p>{trainer.description}</p>
+        <div className="popup-image-wrapper">
+          <img src={trainer.image} alt={trainer.name} />
+        </div>
+        <h2 style={{ margin: "0.5rem 0", color: "#333" }}>{trainer.name}</h2>
+        <h4 style={{ color: "#ff416c", marginBottom: "1rem" }}>
+          {trainer.specialty}
+        </h4>
+        <p style={{ color: "#666", lineHeight: "1.6" }}>
+          {trainer.description}
+        </p>
       </div>
     </div>
   );
@@ -42,43 +31,87 @@ export default function Trainers() {
     {
       name: "Sonia Patel",
       image: "/trainers/trainer1.png",
-      specialty: "Zumba & Cardio",
+      specialty: "Zumba Expert",
       description:
-        "Certified Zumba trainer with 6+ years of experience. Specializes in high-energy cardio sessions.",
+        "Sonia is a certified Zumba trainer helping people lose weight with fun dance moves.",
     },
     {
       name: "Mohit Sharma",
       image: "/trainers/trainer2.png",
-      specialty: "Dance & Fitness",
+      specialty: "Fitness Coach",
       description:
-        "Professional dancer and fitness coach. Focuses on dance-based fat loss programs.",
+        "Mohit focuses on strength training and high-intensity interval training (HIIT).",
     },
     {
       name: "Abhay Deshmukh",
       image: "/trainers/trainer3.png",
-      specialty: "Strength & Zumba",
+      specialty: "Yoga Master",
       description:
-        "Expert in strength training with Zumba fusion. Helps build stamina and confidence.",
+        "Abhay brings peace and flexibility to your life with advanced Yoga techniques.",
+    },
+    {
+      name: "Riya Sen",
+      image: "/trainers/trainer3.png",
+      specialty: "Aerobics",
+      description: "Specialist in rhythmic aerobics and flexibility training.",
     },
   ];
 
   return (
-    <section className="section" id="trainers">
-      <div className="container text-center">
-        <h2>Our Trainers</h2>
+    <section className="trainers-section" id="trainers">
+      {/* --- BACKGROUND ANIMATION DIVS --- */}
+      {/* हे बॅकग्राउंडसाठी नवीन ॲड केले आहे */}
+      <ul className="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      {/* --------------------------------- */}
+
+      <div
+        className="container text-center"
+        style={{ marginBottom: "40px", position: "relative", zIndex: 2 }}
+      >
+        <h2 style={{ fontSize: "2.5rem", fontWeight: "800" }}>
+          {" "}
+          <span
+            style={{
+              color: "#ff416c",
+
+              padding: "0 10px",
+              borderRadius: "5px",
+            }}
+          >
+            Trainers
+          </span>
+        </h2>
+        <p>Click on a trainer to know more</p>
       </div>
 
-      <div className="container trainers-grid">
+      <div className="trainers-container">
         {trainers.map((trainer, idx) => (
-          <TrainerCard
+          <div
             key={idx}
-            trainer={trainer}
-            onClick={setSelectedTrainer}
-          />
+            className="trainer-panel"
+            style={{ backgroundImage: `url(${trainer.image})` }}
+            onClick={() => setSelectedTrainer(trainer)}
+          >
+            <div className="overlay-gradient"></div>
+            <div className="panel-content">
+              <h3>{trainer.name}</h3>
+              <p>{trainer.specialty}</p>
+            </div>
+          </div>
         ))}
       </div>
 
-      {/* POPUP */}
       <TrainerPopup
         trainer={selectedTrainer}
         onClose={() => setSelectedTrainer(null)}

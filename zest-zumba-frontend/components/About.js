@@ -1,27 +1,69 @@
+import { useState } from "react";
+
 export default function About() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const aboutData = [
+    {
+      id: 0,
+      tabTitle: "Our Vibe",
+      title: "Party, Not Workout! 🎵",
+      text: "Zest Zumba Studio is not a boring gym. We blend high-energy dance with fitness. You won't even realize you are exercising because you'll be too busy having fun!",
+      extra: "Custom playlists & Themed Weekends included.",
+      icon: "💃",
+    },
+    {
+      id: 1,
+      tabTitle: "Workouts",
+      title: "Sweat & Smile 🔥",
+      text: "Say goodbye to treadmills. Our routines mix Latin rhythms, Bollywood beats, and Cardio intervals. It's designed to burn 800+ calories per session.",
+      extra: "Perfect for weight loss & flexibility.",
+      icon: "🔥",
+    },
+    {
+      id: 2,
+      tabTitle: "Community",
+      title: "Family First 🤝",
+      text: "Beginner or Pro, everyone is welcome here. We are a non-judgmental family that grows together. Post-workout selfies and monthly challenges keep us connected.",
+      extra: "Join our exclusive WhatsApp group for diet tips.",
+      icon: "❤️",
+    },
+  ];
+
   return (
-    <section className="section about" id="about">
-      <div className="container text-center">
-        <h2>About Zest Zumba Studio</h2>
+    <section className="about-section" id="about">
+      <h2 className="about-title">About Us</h2>
+      <p className="about-tagline">Why Choose Zest Studio?</p>
 
-        <p className="about-text">
-          Zest Zumba Studio is more than just a place to work out — it’s where
-          fitness meets fun, music, and positive energy. Every session is
-          designed to uplift your mood while helping you stay active and
-          healthy.
-        </p>
+      {/* TABS NAVIGATION (Buttons) */}
+      <div className="tabs-nav">
+        {aboutData.map((item, index) => (
+          <button
+            key={item.id}
+            className={`tab-btn ${activeTab === index ? "active" : ""}`}
+            onClick={() => setActiveTab(index)}
+          >
+            {item.tabTitle}
+          </button>
+        ))}
+      </div>
 
-        <p className="about-text">
-          Our studio believes that fitness should never feel boring. With
-          energetic Zumba routines, powerful music, and expert guidance, we
-          create an environment where every workout feels like a celebration.
-        </p>
+      {/* CONTENT DISPLAY AREA (No Cards) */}
+      <div className="content-display">
+        {/* Left Side: Big Icon */}
+        <div className="content-visual">
+          <div className="big-icon-circle">{aboutData[activeTab].icon}</div>
+        </div>
 
-        <p className="about-text">
-          Whether your goal is weight loss, flexibility, stamina, or simply
-          enjoying movement, Zest Zumba Studio welcomes everyone — beginners,
-          professionals, and fitness lovers alike.
-        </p>
+        {/* Right Side: Text */}
+        <div className="content-text">
+          <h3>{aboutData[activeTab].title}</h3>
+          <p>{aboutData[activeTab].text}</p>
+
+          <div className="highlight-box">
+            <span>✨</span> {aboutData[activeTab].extra}
+          </div>
+        </div>
       </div>
     </section>
   );
