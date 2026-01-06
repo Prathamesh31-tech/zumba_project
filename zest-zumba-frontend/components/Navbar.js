@@ -1,43 +1,70 @@
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
+  // Handle Scroll Effect
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpen]);
 
   const menuItems = ["Home", "About", "Packages", "Testimonials", "Contact"];
 
   return (
-    <nav>
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        {/* Logo */}
-        <div className="logo">
-          Z<span>EST</span>
-        </div>
+        {/* === BRAND: LOGO + NAME === */}
+        <a href="#home" className="brand" onClick={() => setIsOpen(false)}>
+          {/* Logo Image */}
+          <img src="logo.png" alt="Zest Logo" className="brand-logo" />
 
-        {/* Menu */}
-        <ul className={isMobile && open ? "active" : ""}>
+          {/* Text Wrapper (Column) */}
+          <div className="brand-text">
+            <span className="brand-title">
+              Z<span>EST</span>
+            </span>
+            <span className="brand-subtitle">Zumba Studio</span>
+          </div>
+        </a>
+
+        {/* === DESKTOP MENU === */}
+        <ul className={`nav-menu ${isOpen ? "active" : ""}`}>
           {menuItems.map((item) => (
-            <li key={item}>
-              <a href={`#${item.toLowerCase()}`} onClick={() => setOpen(false)}>
+            <li key={item} className="nav-item">
+              <a
+                href={`#${item.toLowerCase()}`}
+                className="nav-link"
+                onClick={() => setIsOpen(false)}
+              >
                 {item}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Hamburger */}
-        {isMobile && (
-          <div className="nav-toggle" onClick={() => setOpen(!open)}>
-            {open ? "✕" : "☰"}
-          </div>
-        )}
+        {/* === HAMBURGER === */}
+        <div
+          className={`hamburger ${isOpen ? "active" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+        </div>
       </div>
     </nav>
   );

@@ -37,7 +37,7 @@ export default function Testimonials() {
   return (
     <section className="testimonials-section" id="testimonials">
       <div className="container header-container">
-        <h2>Happy Members</h2>
+        <h2 className="about-title">Happy Members</h2>
         <p className="section-subtitle">Join 100+ happy faces! 💖</p>
       </div>
 

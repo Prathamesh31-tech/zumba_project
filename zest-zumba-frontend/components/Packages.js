@@ -41,7 +41,7 @@ export default function Packages() {
     // इथे क्लास नाव 'packages-section' करा
     <section className="packages-section" id="packages">
       <div className="container text-center">
-        <h2>Zumba Packages</h2>
+        <h2 className="about-title">Zumba Packages</h2>
         <p className="section-subtitle">
           Choose the plan that fits your energy 🔥
         </p>

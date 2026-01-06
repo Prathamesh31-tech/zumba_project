@@ -79,19 +79,7 @@ export default function Trainers() {
         className="container text-center"
         style={{ marginBottom: "40px", position: "relative", zIndex: 2 }}
       >
-        <h2 style={{ fontSize: "2.5rem", fontWeight: "800" }}>
-          {" "}
-          <span
-            style={{
-              color: "#ff416c",
-
-              padding: "0 10px",
-              borderRadius: "5px",
-            }}
-          >
-            Trainers
-          </span>
-        </h2>
+        <h2 className="about-title">Trainers</h2>
         <p>Click on a trainer to know more</p>
       </div>
 

@@ -46,7 +46,7 @@ export default function Gallery() {
   return (
     <section className="section gallery" id="gallery">
       <div className="container header-container">
-        <h2>Our Gallery</h2>
+        <h2 className="about-title">Our Gallery</h2>
         <p className="section-subtitle">Explore our latest visual collection</p>
       </div>
 
