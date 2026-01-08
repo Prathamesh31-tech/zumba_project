@@ -1,55 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import PackageCard from "./PackageCard";
 
 export default function Packages() {
-  // स्टेट: सध्या कोणता प्लान ॲक्टिव्ह आहे (monthly, sixMonth, yearly)
-  const [billingCycle, setBillingCycle] = useState("monthly");
-
-  // पॅकेज डेटा स्ट्रक्चर अपडेट केले आहे
+  // तीन फिक्स प्लॅन्स (कोणतेही टॉगल बटण नाही)
   const packages = [
     {
-      title: "Beginner",
-      // प्रत्येक कालावधीसाठी वेगळी किंमत
-      prices: {
-        monthly: 1000,
-        sixMonth: 5000, // 1000 सूट (Save ₹1000)
-        yearly: 9000, // 3000 सूट (Save ₹3000)
-      },
+      title: "Monthly Plan",
+      subTitle: "",
+      price: 1500,
+      period: "/month",
       features: [
         "3 Classes/Week",
         "Basic Choreography",
         "Health Tips",
         "Community Access",
+        "Pay as you go",
       ],
       highlight: false,
     },
     {
-      title: "Pro Dancer",
-      prices: {
-        monthly: 1500,
-        sixMonth: 7500,
-        yearly: 14000,
-      },
+      title: "6 Months Plan",
+      subTitle: "",
+      price: 7500, // (1500 * 6 = 9000, here 7500 means save 1500)
+      period: "/6 months",
       features: [
         "5 Classes/Week",
         "Cardio + Zumba",
         "Diet Plan Included",
         "Personal Guide",
+        "Save ₹1,500 Flat",
       ],
-      highlight: true, // Popular Card
+      highlight: true, // This will be the Popular GLOW Card
     },
     {
-      title: "Elite",
-      prices: {
-        monthly: 2000,
-        sixMonth: 10000,
-        yearly: 18000,
-      },
+      title: "Yearly Plan",
+      subTitle: "",
+      price: 14000, // Best Value
+      period: "/year",
       features: [
         "Unlimited Access",
         "Advanced Moves",
         "1-on-1 Session",
         "Full Merch Kit",
+        "Biggest Savings",
       ],
       highlight: false,
     },
@@ -57,44 +50,19 @@ export default function Packages() {
 
   return (
     <section className="packages-section" id="packages">
-      {/* Background Shapes */}
-
-      <div className=" text-center content-wrapper">
-        <h2 className="about-title">Membership Plans</h2>
-        <p className="section-subtitle">
-          Invest in your health. Choose the plan that fits your rhythm.
+      <div className="content-wrapper">
+        <h2 className="about-title text-center">Membership Plans</h2>
+        <p className="section-subtitle text-center">
+          Invest in your health. Choose the rhythm that fits you.
         </p>
 
-        {/* --- DURATION TOGGLE SWITCH --- */}
-        <div className="billing-toggle">
-          <button
-            className={billingCycle === "monthly" ? "active" : ""}
-            onClick={() => setBillingCycle("monthly")}
-          >
-            Monthly
-          </button>
-          <button
-            className={billingCycle === "sixMonth" ? "active" : ""}
-            onClick={() => setBillingCycle("sixMonth")}
-          >
-            6 Months
-          </button>
-          <button
-            className={billingCycle === "yearly" ? "active" : ""}
-            onClick={() => setBillingCycle("yearly")}
-          >
-            Yearly <span className="save-badge">Save 20%</span>
-          </button>
-        </div>
-
-        {/* --- CARDS GRID --- */}
+        {/* --- CARDS GRID (Direct Display) --- */}
         <div className="packages-grid">
           {packages.map((pkg, idx) => (
             <PackageCard
               key={idx}
               {...pkg}
-              price={pkg.prices[billingCycle]} // स्टेटनुसार किंमत पाठवा
-              cycle={billingCycle} // कालावधी पाठवा (Label साठी)
+              // Price and Period directly passed from object
             />
           ))}
         </div>

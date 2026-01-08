@@ -1,39 +1,39 @@
+import React from "react";
+
 export default function PackageCard({
   title,
+  subTitle,
   price,
+  period,
   features,
   highlight,
-  cycle,
 }) {
-  // कालावधीनुसार Label ठरवा
-  let durationLabel = "/ month";
-  if (cycle === "sixMonth") durationLabel = "/ 6 months";
-  if (cycle === "yearly") durationLabel = "/ year";
-
   return (
     <div className={`package-card ${highlight ? "popular" : ""}`}>
-      {highlight && <span className="badge">MOST POPULAR</span>}
+      {highlight && <div className="badge">MOST POPULAR</div>}
 
       <div className="card-header">
         <h3>{title}</h3>
-        <div className="price-box">
-          <h2 className="price">₹{price.toLocaleString()}</h2>
-          <span className="duration">{durationLabel}</span>
-        </div>
+        <span className="plan-subtitle">{subTitle}</span>
       </div>
 
       <div className="divider"></div>
 
+      <div className="price-box">
+        <span className="currency">₹</span>
+        <span className="price">{price.toLocaleString()}</span>
+        <span className="duration">{period}</span>
+      </div>
+
       <ul className="feature-list">
-        {features.map((feat, idx) => (
-          <li key={idx}>
-            <span className="icon">{highlight ? "✨" : "✓"}</span>
-            {feat}
+        {features.map((feat, i) => (
+          <li key={i}>
+            <span className="icon">✓</span> {feat}
           </li>
         ))}
       </ul>
 
-      <button className="package-btn">Choose Plan</button>
+      <button className="package-btn">Join Now</button>
     </div>
   );
 }

@@ -275,6 +275,110 @@ img, video {
     display: none;
   }
 }
+/* ================= DROPDOWN MENU STYLES (New) ================= */
+
+/* Dropdown Container (The Li item) */
+.nav-item.dropdown {
+  position: relative; /* Essential for positioning the dropdown menu */
+}
+
+/* The Dropdown Menu List (Hidden by default) */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 220px; /* Width of the dropdown */
+  background: rgba(74, 14, 149, 0.95); /* Deep Purple background */
+  backdrop-filter: blur(15px);
+  list-style: none;
+  padding: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Animation for appearance */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: 1002;
+}
+
+/* Show Dropdown on Hover (Desktop) */
+.nav-item.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown Links */
+.dropdown-link {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--z-neon);
+  padding-left: 25px; /* Slide effect */
+  border-left: 3px solid var(--z-neon);
+}
+
+/* Arrow Icon for Gallery */
+.dropdown-arrow {
+  margin-left: 5px;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.nav-item.dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* ================= MOBILE DROPDOWN (Responsive) ================= */
+
+@media (max-width: 768px) {
+  /* On mobile, position is static to push items down */
+  .dropdown-menu {
+    position: static; 
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05); /* Lighter bg for contrast */
+    box-shadow: none;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none; /* Hidden strictly by display on mobile initially */
+    padding: 0;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* When active class is added via React state */
+  .dropdown-menu.mobile-open {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  .dropdown-link {
+    font-size: 1rem;
+    padding: 15px;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
 /* -------------------- Hero Section -------------------- */
 /* Reuse variables from Navbar if possible, or define here */
 :root {
@@ -709,7 +813,6 @@ img, video {
     justify-content: center; /* बॅजेस सेंटरला */
   }
 }
-
 /* -------------------- Trainers Section -------------------- */
 /* --- MAIN SECTION LAYOUT --- */
 .trainers-immersive {
@@ -1027,89 +1130,53 @@ img, video {
 /* --- SECTION CONTAINER --- */
 .packages-section {
   position: relative;
-   background: linear-gradient(180deg, #b5fffc, #ffdee9);
+  background: linear-gradient(180deg, #b5fffc, #ffdee9);
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+
 }
 
-/* --- CONTENT WRAPPER (RESPONSIVE FIX) --- */
 .content-wrapper {
   position: relative;
   z-index: 2;
-  /* Laptop साठी 90% आणि Max limit 1200px */
   width: 90%;
-  max-width: 1200px; 
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem ;
-  padding-bottom: 2rem;
 }
 
 /* --- HEADINGS --- */
+.text-center { text-align: center; }
+
+.about-title {
+  font-size: 2.5rem;
+  color: #ff416c;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
 
 .section-subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 3rem;
 }
 
-/* --- TOGGLE SWITCH (Tabs) --- */
-.billing-toggle {
-  display: inline-flex;
-  background: white;
-  padding: 5px;
-  border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  margin-bottom: 2rem;
-  position: relative;
-  flex-wrap: wrap; /* लहान स्क्रीनवर बटणे खाली येतील */
-  justify-content: center;
-}
-
-.billing-toggle button {
-  background: transparent;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 40px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #666;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.billing-toggle button.active {
-  background: #ff416c;
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
-}
-
-.save-badge {
-  background: #ffd700;
-  color: #333;
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  border-radius: 12px;
-  margin-left: 5px;
-  font-weight: 800;
-}
-
-/* --- GRID LAYOUT (RESPONSIVE) --- */
+/* --- GRID LAYOUT --- */
 .packages-grid {
   display: grid;
-  /* 280px केल्यामुळे लहान फोनवर सुद्धा कार्ड नीट दिसेल */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  /* 3 Columns on Laptop, Auto Stack on Mobile */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  width: 100%;
+  align-items: center; /* Center cards vertically if heights differ */
 }
 
 /* --- CARD DESIGN --- */
 .package-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
   padding: 2.5rem 2rem;
   text-align: center;
   transition: all 0.4s ease;
@@ -1120,73 +1187,86 @@ img, video {
 
 .package-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  background: rgba(255, 255, 255, 0.95);
-  border-color: #ff416c;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  background: #fff;
 }
 
-/* POPULAR CARD STYLE */
+/* === POPULAR CARD (GLOW EFFECT) === */
 .package-card.popular {
   border: 2px solid #ff416c;
-  transform: scale(1.05); /* Desktop वर थोडे मोठे */
-  box-shadow: 0 20px 40px rgba(255, 65, 108, 0.15);
-  z-index: 2; 
-  background: white;
+  background: #fff;
+  transform: scale(1.1); /* Slightly Bigger */
+  box-shadow: 0 0 30px rgba(255, 65, 108, 0.4); /* Glow */
+  z-index: 10;
 }
 
 .package-card.popular:hover {
-  transform: scale(1.08) translateY(-10px);
+  transform: scale(1.15) translateY(-5px);
+  box-shadow: 0 0 50px rgba(255, 65, 108, 0.6); /* Intense Glow */
 }
 
-/* BADGE */
+/* Badge */
 .badge {
   position: absolute;
-  top: 0;
+  top: -15px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   background: linear-gradient(90deg, #ff416c, #ff4b2b);
   color: white;
-  padding: 8px 20px;
-  border-radius: 30px;
+  padding: 6px 20px;
+  border-radius: 50px;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
   box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
-  white-space: nowrap;
 }
 
 /* --- CARD CONTENT --- */
 .card-header h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #333;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
+  margin: 0;
+  font-weight: 800;
 }
 
-.price-box {
-  margin-bottom: 1rem;
+.plan-subtitle {
+  display: block;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(0,0,0,0.05);
+  margin: 1.5rem 0;
+}
+
+.price-box { margin-bottom: 1.5rem; }
+
+.currency {
+  font-size: 1.5rem;
+  vertical-align: top;
+  font-weight: 600;
 }
 
 .price {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 800;
   color: #222;
   line-height: 1;
 }
 
 .duration {
-  font-size: 0.95rem;
-  color: #777;
+  font-size: 1rem;
+  color: #888;
   font-weight: 500;
 }
 
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
-  margin: 1.5rem 0;
-}
-
-/* LIST */
+/* Feature List */
 .feature-list {
   list-style: none;
   padding: 0;
@@ -1207,20 +1287,18 @@ img, video {
 .icon {
   color: #ff416c;
   font-weight: bold;
-  font-size: 1.1rem;
-  min-width: 20px; /* आयकॉन एका रेषेत राहण्यासाठी */
 }
 
-/* BUTTON */
+/* Button */
 .package-btn {
   width: 100%;
-  padding: 1rem;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 50px;
   border: none;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  background: #f0f0f0;
+  background: #f4f4f4;
   color: #333;
   transition: all 0.3s ease;
 }
@@ -1229,6 +1307,7 @@ img, video {
   background: #e0e0e0;
 }
 
+/* Popular Button Style */
 .package-card.popular .package-btn {
   background: linear-gradient(90deg, #ff416c, #ff4b2b);
   color: white;
@@ -1237,74 +1316,23 @@ img, video {
 
 .package-card.popular .package-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 25px rgba(255, 65, 108, 0.4);
+  box-shadow: 0 15px 30px rgba(255, 65, 108, 0.5);
 }
 
-/* =========================================
-   MOBILE RESPONSIVENESS (Media Queries)
-   ========================================= */
-
-/* Tablets (iPad, Small Laptops) */
-@media (max-width: 1024px) {
-  .content-wrapper {
-    width: 95%; /* थोडी जास्त जागा वापरा */
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .packages-grid {
+    grid-template-columns: 1fr; /* One card per row */
+    gap: 3rem;
   }
   
   .package-card.popular {
-    transform: scale(1.02); /* टॅब्लेटवर झूम कमी करा */
-  }
-}
-
-/* Mobile Phones (Landscape & Portrait) */
-@media (max-width: 768px) {
-  .packages-section {
-    padding: 3rem 0;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .billing-toggle {
-    width: 100%;
-    flex-direction: column; /* बटणे एकाखाली एक */
-    border-radius: 20px;
-    padding: 10px;
-  }
-
-  .billing-toggle button {
-    width: 100%;
-    margin-bottom: 5px;
-  }
-
-  /* मोबाईलवर Popular कार्ड वेगळे दिसण्यासाठी बॉर्डर वापरा, Scale नको */
-  .package-card.popular {
-    transform: none !important; 
+    transform: scale(1.05); /* Less zoom on mobile */
     margin: 1rem 0;
-    box-shadow: 0 10px 30px rgba(255, 65, 108, 0.2);
   }
   
   .package-card.popular:hover {
-    transform: translateY(-5px) !important;
-  }
-}
-
-/* Small Phones (iPhone SE, Older Androids) */
-@media (max-width: 480px) {
-  .price {
-    font-size: 2.5rem; /* किंमतीची फॉन्ट साईझ कमी करा */
-  }
-  
-  .package-card {
-    padding: 2rem 1.5rem; /* पॅडिंग कमी करा */
-  }
-  
-  .packages-grid {
-    grid-template-columns: 1fr; /* एका ओळीत एकच कार्ड */
+     transform: scale(1.05);
   }
 }
 /* -------------------- Testimonials-------------------- */
@@ -1554,7 +1582,7 @@ img, video {
   --zg-secondary: #ff4b2b;
   --zg-dark: #111;
   --zg-light: #fff;
-  --zg-gap: 8px; /* इमेजेस मधील अंतर कमी ठेवले आहे magazine look साठी */
+  --zg-gap: 15px;
 }
 
 /* Main Section Reset */
@@ -1564,15 +1592,14 @@ img, video {
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow-x: hidden;
-  padding-top: 1rem;
+  padding-top: 3rem;
 }
 
 /* --- Header --- */
 .zg-header-wrapper {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   padding: 0 1rem;
- 
 }
 
 .zg-tagline {
@@ -1601,120 +1628,96 @@ img, video {
 .zg-subtitle {
   color: #666;
   font-size: 1rem;
-
 }
 
-/* --- Full Width Magazine Grid --- */
-.zg-full-width-container {
+/* --- AUTO SCROLL CONTAINER (IMAGES) --- */
+.zg-scroll-container {
   width: 100%;
-  padding: 0; /* No padding for edge-to-edge look */
-  margin-bottom: 1rem;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  padding: 10px 0 30px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.zg-scroll-container::-webkit-scrollbar { display: none; }
 
-.zg-mosaic-grid {
-  display: grid;
-  /* Laptop: 4 columns standard */
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 260px; /* प्रत्येक रो ची उंची */
-  gap: var(--zg-gap);
+/* --- AUTO SCROLL CONTAINER (VIDEOS - New) --- */
+.zg-video-scroll-container {
   width: 100%;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  padding: 10px 0 30px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.zg-video-scroll-container::-webkit-scrollbar { display: none; }
+
+/* Common Track */
+.zg-scroll-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  padding: 0 1rem;
 }
 
-.zg-card {
+/* Image Card */
+.zg-scroll-card {
+  width: 320px; 
+  height: 240px; 
+  flex-shrink: 0; 
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
   cursor: pointer;
-  background: #f4f4f4;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 4px solid #fff;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.zg-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-  display: block;
+.zg-scroll-card img {
+  width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block;
 }
 
-.zg-card:hover img {
-  transform: scale(1.1);
-}
+.zg-scroll-card:hover { transform: translateY(-5px); border-color: var(--zg-primary); }
+.zg-scroll-card:hover img { transform: scale(1.1); }
 
-/* Magazine Layout Logic (Spans) */
-/* पहिली इमेज मोठी (2x2) */
-.zg-item-0 {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-/* चौथी इमेज रुंद (2x1) */
-.zg-item-3 {
-  grid-column: span 2;
-}
-
-/* --- Overlay Icon --- */
+/* Overlay Icon */
 .zg-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.3);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transition: 0.3s;
 }
-.zg-card:hover .zg-overlay { opacity: 1; }
+.zg-scroll-card:hover .zg-overlay { opacity: 1; }
 .zg-icon { font-size: 2rem; color: #fff; transform: scale(0); transition: 0.3s; }
-.zg-card:hover .zg-icon { transform: scale(1); }
+.zg-scroll-card:hover .zg-icon { transform: scale(1); }
 
 /* --- View More Button --- */
-.zg-btn-wrapper {
-  text-align: center;
-}
+.zg-btn-wrapper { text-align: center; margin-top: 1rem; }
 
 .zg-view-btn {
-  background-color: yellow;
-  color: var(--zg-dark);
-  border: none;
-  padding: 12px 20px;
-  font-size: 0.9rem;
-  box-shadow: 1px 1px 10px rgb(138, 129, 129);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 20px;
+  background-color: yellow; color: var(--zg-dark); border: none;
+  padding: 12px 20px; font-size: 0.9rem; box-shadow: 1px 1px 10px rgb(138, 129, 129);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  cursor: pointer; transition: 0.3s; border-radius: 20px; 
 }
-
-.zg-view-btn:hover {
-  background: var(--zg-dark);
-  color: #fff;
-}
+.zg-view-btn:hover { background: var(--zg-dark); color: #fff; }
 
 /* --- Reels Section --- */
 .zg-reels-section {
-  margin-top: 1rem;
-  padding: 2rem 1rem;
-  border-top: 1px solid #eee;
+  margin-top: 2rem; padding: 2rem 1rem; border-top: 1px solid #eee;
 }
 
 .zg-reels-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--zg-dark);
-  padding-left: 10px;
-  border-left: 4px solid var(--zg-primary);
+  font-size: 1.5rem; margin-bottom: 1rem; color: var(--zg-dark);
+  padding-left: 10px; border-left: 4px solid var(--zg-primary);
 }
 
-.zg-reels-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 1.5rem;
-  padding-bottom: 15px;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-}
-
+/* Reel Card (Updated for Scrolling) */
 .zg-reel-card {
-  flex: 0 0 auto;
-  width: 260px; /* Reel Width */
+  flex-shrink: 0; /* Important for scroll */
+  width: 260px; 
   aspect-ratio: 9/16;
   border-radius: 15px;
   overflow: hidden;
@@ -1726,111 +1729,52 @@ img, video {
   background: #000;
 }
 
-.zg-reel-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--zg-primary);
-}
+.zg-reel-card:hover { transform: translateY(-5px); border-color: var(--zg-primary); }
 
-.zg-reel-thumb {
-  width: 100%; height: 100%; object-fit: cover;
-}
+.zg-reel-thumb { width: 100%; height: 100%; object-fit: cover; }
 
 .zg-play-icon {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px; height: 40px;
-  background: rgba(255,255,255,0.3);
-  backdrop-filter: blur(5px);
-  border-radius: 50%;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 40px; height: 40px; background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(5px); border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  font-size: 1.2rem;
-  border: 1px solid #fff;
+  color: #fff; font-size: 1.2rem; border: 1px solid #fff;
 }
 
 /* ---------------- MODALS (POPUPS) ---------------- */
 
-/* A. Grid Overlay Modal ("View More") */
+/* Grid Modal */
 .zg-modal-grid-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  animation: zgSlideUp 0.4s ease-out;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+  display: flex; flex-direction: column; animation: zgSlideUp 0.4s ease-out;
   background: linear-gradient(180deg, #b5fffc, #ffdee9);
 }
 
-@keyframes zgSlideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
+@keyframes zgSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
 .zg-modal-header {
-  padding: 0rem 1rem 0rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  box-shadow: 1px 1px 10px black;
+  padding: 1rem; display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: rgba(255,255,255,0.8);
 }
-
-
-
-.zg-close-grid-btn {
-  background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--zg-dark);
-}
-
-.zg-modal-scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-}
-
-.zg-all-images-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
-}
-
-.zg-grid-item {
-  aspect-ratio: 4 /3; /* Rectangle for simple view */
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 8px;
-}
-.zg-grid-item img {
-  width: 100%; height: 100%; object-fit: cover; transition: 0.3s;
-}
+.zg-close-grid-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--zg-dark); }
+.zg-modal-scroll-area { flex: 1; overflow-y: auto; padding: 1rem; }
+.zg-all-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+.zg-grid-item { aspect-ratio: 4 / 3; cursor: pointer; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.zg-grid-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
 .zg-grid-item:hover img { transform: scale(1.1); }
 
-
-/* B. Lightbox (Single Image & Video) */
+/* Lightbox */
 .zg-lightbox {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.95);
-  z-index: 10000;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95); z-index: 10000;
   display: flex; align-items: center; justify-content: center;
 }
+.zg-lb-content { max-width: 90%; max-height: 90%; }
+.zg-lb-content img { max-width: 100%; max-height: 85vh; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 2px solid #fff; }
+.zg-lb-video-wrapper { width: 100%; height: 85vh; display: flex; justify-content: center; }
+.zg-fullscreen-video { height: 100%; aspect-ratio: 9/16; background: #000; }
 
-.zg-lb-content {
-  max-width: 90%; max-height: 90%;
-}
-.zg-lb-content img {
-  max-width: 100%; max-height: 85vh;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  border: 2px solid #fff;
-}
-
-.zg-lb-video-wrapper {
-  width: 100%; height: 85vh;
-  display: flex; justify-content: center;
-}
-.zg-fullscreen-video {
-  height: 100%; aspect-ratio: 9/16; background: #000;
-}
-
-/* Nav Buttons */
+/* Lightbox Nav */
 .zg-lb-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
   background: rgba(255,255,255,0.1); border: none; color: #fff;
@@ -1838,47 +1782,16 @@ img, video {
   border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
 }
 .zg-lb-nav:hover { background: var(--zg-primary); }
-.zg-lb-nav.left { left: 20px; }
-.zg-lb-nav.right { right: 20px; }
+.zg-lb-nav.left { left: 20px; } .zg-lb-nav.right { right: 20px; }
+.zg-lb-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: #fff; font-size: 3rem; cursor: pointer; z-index: 10; }
+.zg-lb-counter { position: absolute; bottom: 20px; color: #fff; font-size: 1rem; }
 
-.zg-lb-close {
-  position: absolute; top: 20px; right: 20px;
-  background: none; border: none; color: #fff; font-size: 3rem; cursor: pointer; z-index: 10;
-}
-
-.zg-lb-counter {
-  position: absolute; bottom: 20px; color: #fff; font-size: 1rem;
-}
-
-/* --- RESPONSIVE MEDIA QUERIES --- */
-@media (max-width: 1024px) {
-  .zg-mosaic-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 220px;
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .zg-section { padding: 3rem 0; }
-  
-  /* Mobile Grid: 2 Columns */
-  .zg-mosaic-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 180px;
-  }
-  
-  /* Reset Spans for Mobile if needed, or keep for interest */
-  .zg-item-0 { grid-column: span 2; grid-row: span 2; }
-  .zg-item-3 { grid-column: span 2; }
-
-  /* Mobile Reels */
+  .zg-scroll-card { width: 260px; height: 200px; }
   .zg-reel-card { width: 200px; }
-  
-  /* Nav buttons smaller */
   .zg-lb-nav { width: 40px; height: 40px; font-size: 1.2rem; }
-  .zg-lb-nav.left { left: 10px; } 
-  .zg-lb-nav.right { right: 10px; }
-  
+  .zg-lb-nav.left { left: 10px; } .zg-lb-nav.right { right: 10px; }
   .zg-fullscreen-video { width: 100%; height: auto; object-fit: contain;}
   .zg-lb-video-wrapper { height: auto; align-items: center; }
 }
@@ -2292,6 +2205,12 @@ img, video {
   margin-bottom: 30px;
   color: var(--text-dark);
   font-weight: 700;
+  margin: 0;
+  padding: 0;
+  color: #e91e63;
+   text-transform: uppercase;
+   text-align: center;
+
 }
 
 /* Form Layout for Date/Shift row */

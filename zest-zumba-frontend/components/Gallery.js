@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export default function Gallery() {
   // Demo Data
@@ -49,12 +49,51 @@ export default function Gallery() {
   ];
 
   // --- States ---
-  const [isViewMoreOpen, setIsViewMoreOpen] = useState(false); // For All Images Grid
-  const [lightboxIndex, setLightboxIndex] = useState(null); // For Single Image Fullscreen
-  const [reelIndex, setReelIndex] = useState(null); // For Video Player
+  const [isViewMoreOpen, setIsViewMoreOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [reelIndex, setReelIndex] = useState(null);
 
-  // Main page shows only first 6 images
-  const mainPageImages = galleryImages.slice(0, 4);
+  // --- Auto Scroll Setup (Images) ---
+  const imageScrollRef = useRef(null);
+  const [isImagePaused, setIsImagePaused] = useState(false);
+  const scrollImages = galleryImages.slice(0, 10);
+
+  // --- Auto Scroll Setup (Videos) ---
+  const videoScrollRef = useRef(null);
+  const [isVideoPaused, setIsVideoPaused] = useState(false);
+
+  // Helper Function for Auto Scroll Logic
+  const setupAutoScroll = (ref, isPaused, speed = 1) => {
+    const scrollContainer = ref.current;
+    if (!scrollContainer) return;
+
+    let animationId;
+    const scrollStep = () => {
+      if (!isPaused) {
+        scrollContainer.scrollLeft += speed;
+        // Infinite Loop Logic
+        if (
+          scrollContainer.scrollLeft + scrollContainer.clientWidth >=
+          scrollContainer.scrollWidth - 1
+        ) {
+          scrollContainer.scrollLeft = 0;
+        }
+      }
+      animationId = requestAnimationFrame(scrollStep);
+    };
+    animationId = requestAnimationFrame(scrollStep);
+    return () => cancelAnimationFrame(animationId);
+  };
+
+  // Effect: Image Scroll
+  useEffect(() => {
+    return setupAutoScroll(imageScrollRef, isImagePaused, 0.5);
+  }, [isImagePaused]);
+
+  // Effect: Video Scroll
+  useEffect(() => {
+    return setupAutoScroll(videoScrollRef, isVideoPaused, 0.5);
+  }, [isVideoPaused]);
 
   // --- Handlers: Image Lightbox ---
   const openLightbox = (index) => setLightboxIndex(index);
@@ -138,16 +177,36 @@ export default function Gallery() {
         <p className="zg-subtitle">Every beat, every move, captured in time.</p>
       </div>
 
-      {/* 2. Full Width Magazine Grid (Main Page) */}
-      <div className="zg-full-width-container">
-        <div className="zg-mosaic-grid">
-          {mainPageImages.map((img, idx) => (
+      {/* 2. IMAGE AUTO SCROLL */}
+      <div
+        className="zg-scroll-container"
+        ref={imageScrollRef}
+        onMouseEnter={() => setIsImagePaused(true)}
+        onMouseLeave={() => setIsImagePaused(false)}
+        onTouchStart={() => setIsImagePaused(true)}
+        onTouchEnd={() => setIsImagePaused(false)}
+      >
+        <div className="zg-scroll-track">
+          {scrollImages.map((img, idx) => (
             <div
               key={idx}
-              className={`zg-card zg-item-${idx}`}
+              className="zg-scroll-card"
               onClick={() => openLightbox(idx)}
             >
-              <img src={img} alt="Gallery" loading="lazy" />
+              <img src={img} alt="Gallery Scroll" loading="lazy" />
+              <div className="zg-overlay">
+                <span className="zg-icon">🔍</span>
+              </div>
+            </div>
+          ))}
+          {/* Duplicate for Loop */}
+          {scrollImages.map((img, idx) => (
+            <div
+              key={`dup-${idx}`}
+              className="zg-scroll-card"
+              onClick={() => openLightbox(idx)}
+            >
+              <img src={img} alt="Gallery Scroll" loading="lazy" />
               <div className="zg-overlay">
                 <span className="zg-icon">🔍</span>
               </div>
@@ -157,7 +216,7 @@ export default function Gallery() {
       </div>
 
       {/* View More Button */}
-      {galleryImages.length > 4 && (
+      {galleryImages.length > 0 && (
         <div className="zg-btn-wrapper">
           <button
             className="zg-view-btn"
@@ -168,30 +227,55 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* 3. Reels Section (Horizontal Scroll) */}
+      {/* 3. VIDEO AUTO SCROLL (UPDATED) */}
       {reelVideos.length > 0 && (
-        <div className="zg-reels-section">
+        <div className="zg-reels-section" id="video-gallery">
           <h3 className="zg-reels-title">Watch Us Move ⚡</h3>
-          <div className="zg-reels-container">
-            {reelVideos.map((vid, idx) => (
-              <div
-                key={idx}
-                className="zg-reel-card"
-                onClick={() => openReel(idx)}
-              >
-                <video muted playsInline className="zg-reel-thumb">
-                  <source src={`${vid}#t=0.1`} type="video/mp4" />
-                </video>
-                <div className="zg-play-icon">▶</div>
-              </div>
-            ))}
+
+          {/* Video Scroll Container */}
+          <div
+            className="zg-video-scroll-container"
+            ref={videoScrollRef}
+            onMouseEnter={() => setIsVideoPaused(true)}
+            onMouseLeave={() => setIsVideoPaused(false)}
+            onTouchStart={() => setIsVideoPaused(true)}
+            onTouchEnd={() => setIsVideoPaused(false)}
+          >
+            <div className="zg-scroll-track">
+              {/* Original Videos */}
+              {reelVideos.map((vid, idx) => (
+                <div
+                  key={idx}
+                  className="zg-reel-card"
+                  onClick={() => openReel(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+              {/* Duplicate Videos for Infinite Loop */}
+              {reelVideos.map((vid, idx) => (
+                <div
+                  key={`dup-vid-${idx}`}
+                  className="zg-reel-card"
+                  onClick={() => openReel(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
 
-      {/* ---------------- MODALS / POPUPS ---------------- */}
+      {/* ---------------- MODALS / POPUPS (UNCHANGED) ---------------- */}
 
-      {/* A. "View More" Full Screen Grid Modal */}
+      {/* A. "View More" Modal */}
       {isViewMoreOpen && (
         <div className="zg-modal-grid-overlay">
           <div className="zg-modal-header">
@@ -219,7 +303,7 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* B. Single Image Lightbox (Fullscreen Slider) */}
+      {/* B. Image Lightbox */}
       {lightboxIndex !== null && (
         <div className="zg-lightbox">
           <button className="zg-lb-close" onClick={closeLightbox}>
@@ -228,11 +312,9 @@ export default function Gallery() {
           <button className="zg-lb-nav left" onClick={prevImage}>
             ❮
           </button>
-
           <div className="zg-lb-content">
             <img src={galleryImages[lightboxIndex]} alt="Full View" />
           </div>
-
           <button className="zg-lb-nav right" onClick={nextImage}>
             ❯
           </button>
@@ -242,7 +324,7 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* C. Video Player Lightbox */}
+      {/* C. Video Lightbox */}
       {reelIndex !== null && (
         <div className="zg-lightbox zg-video-mode">
           <button className="zg-lb-close" onClick={closeReel}>
@@ -251,7 +333,6 @@ export default function Gallery() {
           <button className="zg-lb-nav left" onClick={prevReel}>
             ❮
           </button>
-
           <div className="zg-lb-video-wrapper">
             <video
               controls
@@ -263,7 +344,6 @@ export default function Gallery() {
               <source src={reelVideos[reelIndex]} type="video/mp4" />
             </video>
           </div>
-
           <button className="zg-lb-nav right" onClick={nextReel}>
             ❯
           </button>

@@ -62,7 +62,7 @@ export default function Contact() {
         {/* --- Right Side: Modern Registration Form --- */}
         <div className="contact-form-wrapper">
           <form className="contact-form">
-            <h3>Class Registration</h3>
+            <h3>Book appointment</h3>
 
             {/* Name */}
             <div className="input-group">
@@ -117,7 +117,7 @@ export default function Contact() {
             </div>
 
             <button type="submit" className="btn-submit">
-              Book Free Trial <FaPaperPlane className="btn-icon" />
+              Send Request <FaPaperPlane className="btn-icon" />
             </button>
           </form>
         </div>
