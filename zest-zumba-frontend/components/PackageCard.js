@@ -1,23 +1,39 @@
-export default function PackageCard({ title, price, features, highlight }) {
+export default function PackageCard({
+  title,
+  price,
+  features,
+  highlight,
+  cycle,
+}) {
+  // कालावधीनुसार Label ठरवा
+  let durationLabel = "/ month";
+  if (cycle === "sixMonth") durationLabel = "/ 6 months";
+  if (cycle === "yearly") durationLabel = "/ year";
+
   return (
     <div className={`package-card ${highlight ? "popular" : ""}`}>
-      {/* बॅज आता टॉप कॉर्नरला आहे (CSS मध्ये सेट केले आहे) */}
-      {highlight && <span className="badge">Best Value</span>}
+      {highlight && <span className="badge">MOST POPULAR</span>}
 
-      <h3>{title}</h3>
-      <h2 className="price">₹{price}</h2>
-      <p className="duration">per month</p>
+      <div className="card-header">
+        <h3>{title}</h3>
+        <div className="price-box">
+          <h2 className="price">₹{price.toLocaleString()}</h2>
+          <span className="duration">{durationLabel}</span>
+        </div>
+      </div>
 
-      <ul>
+      <div className="divider"></div>
+
+      <ul className="feature-list">
         {features.map((feat, idx) => (
           <li key={idx}>
-            {/* चेक मार्क आयकॉन */}
-            {highlight ? "✨" : "✅"} {feat}
+            <span className="icon">{highlight ? "✨" : "✓"}</span>
+            {feat}
           </li>
         ))}
       </ul>
 
-      <button className="package-btn">Enroll Now</button>
+      <button className="package-btn">Choose Plan</button>
     </div>
   );
 }

@@ -1,148 +1,272 @@
 import { useState, useEffect, useCallback } from "react";
+
 export default function Gallery() {
-  const images = [
+  // Demo Data
+  const galleryImages = [
     "/gallery/img1.png",
     "/gallery/img2.png",
     "/gallery/img3.png",
     "/gallery/img4.png",
     "/gallery/img5.png",
+    "/gallery/img2.png",
+    "/gallery/img1.png",
+    "/gallery/img3.png",
+    "/gallery/img5.png",
+    "/gallery/img1.png",
+    "/gallery/img2.png",
+    "/gallery/img3.png",
+    "/gallery/img4.png",
+    "/gallery/img5.png",
+    "/gallery/img2.png",
+    "/gallery/img1.png",
+    "/gallery/img3.png",
+    "/gallery/img5.png",
+    "/gallery/img1.png",
+    "/gallery/img2.png",
+    "/gallery/img3.png",
+    "/gallery/img4.png",
+    "/gallery/img5.png",
+    "/gallery/img2.png",
+    "/gallery/img1.png",
+    "/gallery/img3.png",
+    "/gallery/img5.png",
+    "/gallery/img1.png",
+    "/gallery/img3.png",
+    "/gallery/img5.png",
   ];
 
-  const videos = [
-    "https://res.cloudinary.com/dapveboee/video/upload/v1767290259/video1_zvr8tg.mp4",
-    "https://res.cloudinary.com/dapveboee/video/upload/v1767290248/video2_xduvgd.mp4",
+  const reelVideos = [
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767861996/WhatsApp_Video_2026-01-08_at_13.52.29_uyyhdz_7ec563.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860930/koi_j7uvli.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860938/WhatsApp_Video_2026-01-08_at_13.53.09_bk0kql.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860936/WhatsApp_Video_2026-01-08_at_13.53.08_unajvi.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860932/WhatsApp_Video_2026-01-08_at_13.53.07_r54qlx.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860931/radhta_xqvajw.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860936/WhatsApp_Video_2026-01-08_at_13.53.08_unajvi.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860932/WhatsApp_Video_2026-01-08_at_13.53.07_r54qlx.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860931/radhta_xqvajw.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1767860936/WhatsApp_Video_2026-01-08_at_13.52.23_tyrxrh.mp4",
   ];
 
-  const [showAllImages, setShowAllImages] = useState(false);
-  const [showAllVideos, setShowAllVideos] = useState(false);
-  const [previewIndex, setPreviewIndex] = useState(null);
+  // --- States ---
+  const [isViewMoreOpen, setIsViewMoreOpen] = useState(false); // For All Images Grid
+  const [lightboxIndex, setLightboxIndex] = useState(null); // For Single Image Fullscreen
+  const [reelIndex, setReelIndex] = useState(null); // For Video Player
 
-  // Logic to determine what to show
-  const visibleImages = showAllImages ? images : images.slice(0, 4); // Showing 4 initially looks better on grid
-  const visibleVideos = showAllVideos ? videos : videos.slice(0, 2);
+  // Main page shows only first 6 images
+  const mainPageImages = galleryImages.slice(0, 4);
 
-  const closePreview = () => setPreviewIndex(null);
+  // --- Handlers: Image Lightbox ---
+  const openLightbox = (index) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
 
-  const nextImage = useCallback(() => {
-    setPreviewIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+  const nextImage = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+    },
+    [galleryImages.length]
+  );
 
-  const prevImage = useCallback(() => {
-    setPreviewIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  }, [images.length]);
+  const prevImage = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setLightboxIndex((prev) =>
+        prev === 0 ? galleryImages.length - 1 : prev - 1
+      );
+    },
+    [galleryImages.length]
+  );
 
-  // Handle Keyboard Navigation
+  // --- Handlers: Reels ---
+  const openReel = (index) => setReelIndex(index);
+  const closeReel = () => setReelIndex(null);
+
+  const nextReel = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setReelIndex((prev) => (prev + 1) % reelVideos.length);
+    },
+    [reelVideos.length]
+  );
+
+  const prevReel = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setReelIndex((prev) => (prev === 0 ? reelVideos.length - 1 : prev - 1));
+    },
+    [reelVideos.length]
+  );
+
+  // --- Keyboard Events ---
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (previewIndex === null) return;
-      if (e.key === "Escape") closePreview();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
+    const handleKey = (e) => {
+      if (lightboxIndex !== null) {
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") nextImage();
+        if (e.key === "ArrowLeft") prevImage();
+      }
+      if (reelIndex !== null) {
+        if (e.key === "Escape") closeReel();
+        if (e.key === "ArrowRight") nextReel();
+        if (e.key === "ArrowLeft") prevReel();
+      }
+      if (isViewMoreOpen && lightboxIndex === null && reelIndex === null) {
+        if (e.key === "Escape") setIsViewMoreOpen(false);
+      }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [previewIndex, nextImage, prevImage]);
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [
+    lightboxIndex,
+    reelIndex,
+    isViewMoreOpen,
+    nextImage,
+    prevImage,
+    nextReel,
+    prevReel,
+  ]);
 
   return (
-    <section className="section gallery" id="gallery">
-      <div className="container header-container">
-        <h2 className="about-title">Our Gallery</h2>
-        <p className="section-subtitle">Explore our latest visual collection</p>
+    <section className="zg-section" id="gallery">
+      {/* 1. Header Area */}
+      <div className="zg-header-wrapper">
+        <span className="zg-tagline">Feel The Vibe</span>
+        <h2 className="zg-title">
+          Capture The <span className="zg-highlight">Energy</span>
+        </h2>
+        <p className="zg-subtitle">Every beat, every move, captured in time.</p>
       </div>
 
-      {/* ---------- Images Grid ---------- */}
-      <div className="container">
-        <div className="gallery-grid">
-          {visibleImages.map((img, idx) => (
+      {/* 2. Full Width Magazine Grid (Main Page) */}
+      <div className="zg-full-width-container">
+        <div className="zg-mosaic-grid">
+          {mainPageImages.map((img, idx) => (
             <div
               key={idx}
-              className="media-card"
-              onClick={() => setPreviewIndex(idx)}
+              className={`zg-card zg-item-${idx}`}
+              onClick={() => openLightbox(idx)}
             >
-              <div className="img-wrapper">
-                <img src={img} alt={`Gallery ${idx + 1}`} loading="lazy" />
-                <div className="overlay">
-                  <span>View</span>
-                </div>
+              <img src={img} alt="Gallery" loading="lazy" />
+              <div className="zg-overlay">
+                <span className="zg-icon">🔍</span>
               </div>
             </div>
           ))}
         </div>
-
-        {images.length > 4 && (
-          <div className="btn-container">
-            <button
-              className="gallery-btn"
-              onClick={() => setShowAllImages(!showAllImages)}
-            >
-              {showAllImages ? "Show Less" : "View More Photos"}
-            </button>
-          </div>
-        )}
       </div>
 
-      {/* ---------- Videos Grid ---------- */}
-      {videos.length > 0 && (
-        <div className="container video-section">
-          <h3 className="video-title">Featured Videos</h3>
-          <div className="gallery-grid video-grid">
-            {visibleVideos.map((vid, idx) => (
-              <div key={idx} className="media-card video-card">
-                <video controls preload="metadata">
-                  <source src={vid} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            ))}
-          </div>
-
-          {videos.length > 2 && (
-            <div className="btn-container">
-              <button
-                className="gallery-btn secondary"
-                onClick={() => setShowAllVideos(!showAllVideos)}
-              >
-                {showAllVideos ? "Show Less" : "View More Videos"}
-              </button>
-            </div>
-          )}
+      {/* View More Button */}
+      {galleryImages.length > 4 && (
+        <div className="zg-btn-wrapper">
+          <button
+            className="zg-view-btn"
+            onClick={() => setIsViewMoreOpen(true)}
+          >
+            View All Photos
+          </button>
         </div>
       )}
 
-      {/* ---------- Lightbox / Modal ---------- */}
-      {previewIndex !== null && (
-        <div className="lightbox" onClick={closePreview}>
-          <div
-            className="lightbox-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="close-btn" onClick={closePreview}>
-              &times;
+      {/* 3. Reels Section (Horizontal Scroll) */}
+      {reelVideos.length > 0 && (
+        <div className="zg-reels-section">
+          <h3 className="zg-reels-title">Watch Us Move ⚡</h3>
+          <div className="zg-reels-container">
+            {reelVideos.map((vid, idx) => (
+              <div
+                key={idx}
+                className="zg-reel-card"
+                onClick={() => openReel(idx)}
+              >
+                <video muted playsInline className="zg-reel-thumb">
+                  <source src={`${vid}#t=0.1`} type="video/mp4" />
+                </video>
+                <div className="zg-play-icon">▶</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ---------------- MODALS / POPUPS ---------------- */}
+
+      {/* A. "View More" Full Screen Grid Modal */}
+      {isViewMoreOpen && (
+        <div className="zg-modal-grid-overlay">
+          <div className="zg-modal-header">
+            <h3 className="about-title">All Memories</h3>
+            <button
+              className="zg-close-grid-btn"
+              onClick={() => setIsViewMoreOpen(false)}
+            >
+              ✕
             </button>
-
-            <button className="nav-btn left" onClick={prevImage}>
-              &#10094;
-            </button>
-
-            <img
-              src={images[previewIndex]}
-              className="lightbox-img"
-              alt="Preview"
-            />
-
-            <button className="nav-btn right" onClick={nextImage}>
-              &#10095;
-            </button>
-
-            <div className="lightbox-footer">
-              <span className="counter">
-                {previewIndex + 1} / {images.length}
-              </span>
-              <a href={images[previewIndex]} download className="download-link">
-                Download High Res
-              </a>
+          </div>
+          <div className="zg-modal-scroll-area">
+            <div className="zg-all-images-grid">
+              {galleryImages.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="zg-grid-item"
+                  onClick={() => openLightbox(idx)}
+                >
+                  <img src={img} alt={`Gallery ${idx}`} loading="lazy" />
+                </div>
+              ))}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* B. Single Image Lightbox (Fullscreen Slider) */}
+      {lightboxIndex !== null && (
+        <div className="zg-lightbox">
+          <button className="zg-lb-close" onClick={closeLightbox}>
+            ✕
+          </button>
+          <button className="zg-lb-nav left" onClick={prevImage}>
+            ❮
+          </button>
+
+          <div className="zg-lb-content">
+            <img src={galleryImages[lightboxIndex]} alt="Full View" />
+          </div>
+
+          <button className="zg-lb-nav right" onClick={nextImage}>
+            ❯
+          </button>
+          <div className="zg-lb-counter">
+            {lightboxIndex + 1} / {galleryImages.length}
+          </div>
+        </div>
+      )}
+
+      {/* C. Video Player Lightbox */}
+      {reelIndex !== null && (
+        <div className="zg-lightbox zg-video-mode">
+          <button className="zg-lb-close" onClick={closeReel}>
+            ✕
+          </button>
+          <button className="zg-lb-nav left" onClick={prevReel}>
+            ❮
+          </button>
+
+          <div className="zg-lb-video-wrapper">
+            <video
+              controls
+              autoPlay
+              playsInline
+              className="zg-fullscreen-video"
+              key={reelIndex}
+            >
+              <source src={reelVideos[reelIndex]} type="video/mp4" />
+            </video>
+          </div>
+
+          <button className="zg-lb-nav right" onClick={nextReel}>
+            ❯
+          </button>
         </div>
       )}
     </section>

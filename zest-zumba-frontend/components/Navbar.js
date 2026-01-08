@@ -22,7 +22,7 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
-  const menuItems = ["Home", "About", "Packages", "Testimonials", "Contact"];
+  const menuItems = ["Home", "About", "Packages", "Gallery", "Contact"];
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>

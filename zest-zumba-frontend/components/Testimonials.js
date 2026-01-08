@@ -1,63 +1,101 @@
 import React from "react";
+
 export default function Testimonials() {
   const testimonials = [
     {
+      id: 1,
       name: "Riya Sharma",
-      feedback: "Amazing Zumba classes! Trainers are supportive.",
+      role: "Zumba Member",
+      feedback:
+        "The energy here is unmatched! I’ve lost 5kgs in 2 months just by dancing. Best decision ever!",
       image: "/testimonials/test1.png",
-      role: "Member",
     },
     {
+      id: 2,
       name: "Megha Ghosh",
-      feedback: "Great energy, fun workouts, highly recommend!",
+      role: "Fitness Enthusiast",
+      feedback:
+        "Professional trainers who focus on every beat and move. It feels less like a workout and more like a party!",
       image: "/testimonials/test2.png",
-      role: "Lover",
     },
     {
+      id: 3,
       name: "Amit Deshmukh",
-      feedback: "I lost weight and enjoyed every session!",
+      role: "IT Professional",
+      feedback:
+        "Great stress buster after a long day at work. The community is super supportive.",
       image: "/testimonials/test3.png",
-      role: "Enthusiast",
-    },
-    // Add more dummy data to test the scroll if needed
-    {
-      name: "Soham Patil",
-      feedback: "Best gym experience ever. Totally worth it.",
-      image: "/testimonials/test1.png",
-      role: "Member",
     },
     {
-      name: "Priya Das",
-      feedback: "Music and moves are just perfect!",
-      image: "/testimonials/test2.png",
+      id: 4,
+      name: "Sneha Patil",
       role: "Dancer",
+      feedback:
+        "I love the choreography! It's modern, energetic, and beginner-friendly too.",
+      image: "/testimonials/test1.png",
+    },
+    {
+      id: 5,
+      name: "Priya Das",
+      role: "Homemaker",
+      feedback:
+        "Finally found a gym where I don't feel judged. Love the vibes!",
+      image: "/testimonials/test2.png",
     },
   ];
 
   return (
-    <section className="testimonials-section" id="testimonials">
-      <div className="container header-container">
-        <h2 className="about-title">Happy Members</h2>
-        <p className="section-subtitle">Join 100+ happy faces! 💖</p>
-      </div>
+    <section className="zt-section" id="testimonials">
+      <div className="zt-container">
+        {/* --- Header & Trust Badge --- */}
+        <div className="zt-header-wrapper">
+          <span className="zt-tagline">Happy Members</span>
+          <h2 className="zt-title">
+            What Our Family <span className="zt-highlight">Says</span>
+          </h2>
 
-      {/* Marquee Wrapper */}
-      <div className="marquee-wrapper">
-        <div className="marquee-track">
-          {/* We render the list twice to create a seamless infinite loop */}
-          {[...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
-            <div key={idx} className="compact-card">
-              <div className="card-header">
-                <img src={t.image} alt={t.name} className="card-avatar" />
-                <div>
-                  <h4 className="card-name">{t.name}</h4>
-                  <span className="card-role">{t.role}</span>
+          {/* New Extra Info: Trust Badge */}
+          <div className="zt-trust-badge">
+            <div className="zt-stars">⭐⭐⭐⭐⭐</div>
+            <p className="zt-trust-text">
+              Rated <strong>4.9/5</strong> based on 500+ Reviews
+            </p>
+          </div>
+        </div>
+
+        {/* --- Marquee Scrolling Area --- */}
+        <div className="zt-marquee-wrapper">
+          {/* Gradient Overlay for Fade Effect */}
+          <div className="zt-fade zt-fade-left"></div>
+          <div className="zt-fade zt-fade-right"></div>
+
+          <div className="zt-marquee-track">
+            {/* Render list 3 times for smooth infinite loop */}
+            {[...testimonials, ...testimonials, ...testimonials].map(
+              (t, idx) => (
+                <div key={idx} className="zt-card">
+                  <div className="zt-quote-icon">❝</div>
+                  <p className="zt-feedback">"{t.feedback}"</p>
+
+                  <div className="zt-profile">
+                    <img src={t.image} alt={t.name} className="zt-avatar" />
+                    <div className="zt-info">
+                      <h4 className="zt-name">{t.name}</h4>
+                      <span className="zt-role">{t.role}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <p className="card-feedback">"{t.feedback}"</p>
-              <div className="card-rating">⭐⭐⭐⭐⭐</div>
-            </div>
-          ))}
+              )
+            )}
+          </div>
+        </div>
+
+        {/* --- Bottom CTA (Extra Info) --- */}
+        <div className="zt-bottom-cta">
+          <p>Join the happiest fitness community in town!</p>
+          <a href="#contact" className="zt-link">
+            Read More Reviews on Google →
+          </a>
         </div>
       </div>
     </section>
