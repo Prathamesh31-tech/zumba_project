@@ -69,7 +69,7 @@ export default function Trainers() {
       // Agar PAUSED nahi hai, tabhi auto-scroll karein
       if (!isPaused) {
         // Scroll speed control (1 = normal, 0.5 = slow, 2 = fast)
-        scrollContainer.scrollLeft += 0;
+        scrollContainer.scrollLeft += 0.5;
 
         // Infinite Loop Logic:
         // Agar scroll aadhe se zyada ho gaya, to wapas start (0) par jump karein
