@@ -1,0 +1,240 @@
+:root {
+  --zt-bg: #f8f9fa;
+  --zt-primary: #ff416c;
+  --zt-dark: #2d3436;
+  --zt-gray: #636e72;
+  --zt-card-bg: #ffffff;
+  --zt-card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* --- Section Layout --- */
+.zt-section {
+  padding-bottom: 5rem;
+  padding-top: 4rem;
+  background: var(--zt-bg);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.zt-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* --- Header Styling --- */
+.zt-header-wrapper {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  padding: 0 1rem;
+}
+
+.zt-tagline {
+  color: var(--zt-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.zt-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--zt-dark);
+  margin: 0;
+}
+
+.zt-highlight {
+  color: var(--zt-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.zt-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px; left: 0; width: 100%; height: 10px;
+  background: rgba(255, 65, 108, 0.2);
+  z-index: -1;
+  border-radius: 5px;
+}
+
+/* --- Trust Badge (New) --- */
+.zt-trust-badge {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.zt-stars {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.zt-trust-text {
+  font-size: 0.9rem;
+  color: var(--zt-gray);
+  margin: 0;
+}
+.zt-trust-text strong { color: var(--zt-dark); }
+
+
+/* --- Marquee Wrapper --- */
+.zt-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0;
+  background: transparent;
+}
+
+/* Side Fade Effect (Gradient Mask) */
+.zt-fade {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 150px;
+  z-index: 2;
+  pointer-events: none;
+}
+.zt-fade-left {
+  left: 0;
+  background: linear-gradient(to right, var(--zt-bg), transparent);
+}
+.zt-fade-right {
+  right: 0;
+  background: linear-gradient(to left, var(--zt-bg), transparent);
+}
+
+/* Track Animation */
+.zt-marquee-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: ztScroll 40s linear infinite; /* Slow & Smooth */
+}
+
+/* Pause on Hover */
+.zt-marquee-wrapper:hover .zt-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes ztScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); } /* Adjust based on duplication logic */
+}
+
+/* --- Card Design (Modern) --- */
+.zt-card {
+  width: 350px;
+  background: var(--zt-card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--zt-card-shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.zt-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(255, 65, 108, 0.15);
+  border-color: rgba(255, 65, 108, 0.3);
+}
+
+.zt-quote-icon {
+  font-size: 4rem;
+  color: rgba(255, 65, 108, 0.1);
+  position: absolute;
+  top: 10px; right: 20px;
+  font-family: serif;
+  line-height: 1;
+}
+
+.zt-feedback {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* Profile Section inside Card */
+.zt-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1rem;
+}
+
+.zt-avatar {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--zt-primary);
+}
+
+.zt-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--zt-dark);
+  margin: 0;
+}
+
+.zt-role {
+  font-size: 0.8rem;
+  color: var(--zt-gray);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+
+/* --- Bottom CTA --- */
+.zt-bottom-cta {
+  text-align: center;
+  margin-top: 3rem;
+  color: var(--zt-gray);
+}
+.zt-bottom-cta p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.zt-link {
+  color: var(--zt-primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+.zt-link:hover {
+  border-bottom-color: var(--zt-primary);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .zt-title { font-size: 2rem; }
+  
+  .zt-card {
+    width: 280px; 
+    padding: 1.5rem;
+  }
+  
+  .zt-quote-icon { font-size: 3rem; }
+  
+  .zt-fade { width: 50px; } 
+}

@@ -5,50 +5,26 @@ export default function Footer() {
 
   return (
     <footer className="footer-compact">
-      <div className="container">
-        <div className="footer-wrapper">
-          {/* Left Side: Logo */}
-          <div className="footer-logo">
-            <img src="/logo.png" alt="Zest Zumba" />
-            <span>Zest Zumba Studio</span>
-          </div>
-
-          {/* Right Side: Social Icons */}
-          <div className="footer-social">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook"
-            >
-              <img src="/app/facebook.png" alt="FB" />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-            >
-              <img src="/app/instagram.png" alt="Insta" />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="YouTube"
-            >
-              <img src="/app/youtube.png" alt="YT" />
-            </a>
-          </div>
+      <div className="container footer-wrapper">
+        {/* LEFT */}
+        <div className="footer-left">
+          © {currentYear} Zest Zumba Studio. All rights reserved.
         </div>
 
-        {/* Divider Line */}
-        <div className="footer-divider"></div>
+        {/* CENTER */}
+        <div className="footer-center">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <span>|</span>
+          <a href="/terms">Terms of Service</a>
+          <span>|</span>
+          <a href="/return-policy">Return Policy</a>
+        </div>
 
-        {/* Bottom Copyright */}
-        <p className="copyright-text">
-          &copy; {currentYear} Zest Zumba Studio. All rights reserved.
-        </p>
+        {/* RIGHT */}
+        <div className="footer-right">
+          <span>Developed by</span>
+          <img src="/bizonance-logo.jpeg" alt="Bizonance" />
+        </div>
       </div>
     </footer>
   );

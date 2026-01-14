@@ -1,0 +1,220 @@
+.about-section-full {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #b5fffc, #ffdee9);
+  padding: 1rem 2rem;
+  position: relative;
+  overflow: hidden;
+ 
+}
+.about-title {
+  font-size: 2rem; color: #e91e63; font-weight: 900; text-transform: uppercase;
+  position: relative; z-index: 2; text-align: center; margin-top: 3rem;
+
+}
+
+.about-section-full::before {
+  content: "";
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,65,108,0.05) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 1rem; 
+  z-index: 1;
+}
+
+
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  max-width: 1300px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  
+}
+
+.about-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sub-heading {
+  margin-left: 10px;
+  font-size: 1rem; color: #ff416c; text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 0.5rem; font-weight: 700;
+}
+
+.content-heading {
+  font-size: 2.8rem; line-height: 1.1; color: #2c3e50; margin-bottom: 1.5rem; font-weight: 800;
+}
+
+.highlight {
+  color: #ff4b2b; position: relative; display: inline-block;
+}
+.highlight::after {
+  content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 8px;
+  background: rgba(255, 75, 43, 0.2); z-index: -1;
+}
+
+.about-description {
+  font-size: 1.1rem; color: #555; line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
+}
+
+.features-list {
+  display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;
+}
+
+.feature-item {
+  font-size: 1.1rem; font-weight: 600; color: #333; display: flex; align-items: center; gap: 10px;
+}
+
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.trainer-card {
+  background: white;
+  padding: 1.2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-left: 5px solid #ff416c;
+}
+
+.trainer-img {
+  width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #f0f0f0;
+}
+
+.trainer-info h3 { font-size: 1.3rem; margin: 0; color: #222; }
+.trainer-info .designation { font-size: 0.85rem; color: #ff416c; font-weight: 700; display: block; margin-bottom: 0.3rem; }
+.trainer-info p { font-size: 0.85rem; color: #666; font-style: italic; margin: 0; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.stat-box {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover { transform: translateY(-5px); border-color: #ff416c; }
+.stat-num { display: block; font-size: 1.5rem; font-weight: 800; color: #2c3e50; }
+.stat-label { font-size: 0.8rem; color: #777; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.cert-section h4, .specialties-section h4 {
+  font-size: 1rem; margin-bottom: 0.8rem; color: #333; font-weight: 700; text-transform: uppercase;
+}
+.cert-grid { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.cert-badge {
+  background: #fdfdfd; border: 1px solid #ddd; padding: 8px 15px; border-radius: 6px;
+  font-weight: 600; color: #555; font-size: 0.85rem;
+}
+.tags-container { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.tag {
+  background: rgba(255, 65, 108, 0.1); color: #d63031; padding: 6px 12px;
+  border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  
+  .about-section-full {
+    padding: 0rem 1.5rem; 
+    text-align: center;
+    height: auto;
+    padding-bottom: 1rem;
+  }
+
+
+  
+  .section-header-center {
+    margin-bottom: 0rem;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr; 
+    gap: 3rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-left {
+    align-items: center; 
+    width: 100%;
+    padding: 0; 
+  }
+
+  .content-heading {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .about-description {
+    text-align: center; 
+    padding: 0 10px; 
+  }
+
+
+ 
+  .feature-item {
+    justify-content: center; 
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-right {
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .trainer-card {
+    flex-direction: column;
+    text-align: center;
+    border-left: none;
+    border-top: 5px solid #ff416c;
+    width: 100%;
+    max-width: 400px; 
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stat-box {
+    padding: 0.8rem 0.5rem; 
+  }
+
+  .cert-grid, .tags-container {
+    justify-content: center;
+  }
+}

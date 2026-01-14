@@ -1,0 +1,207 @@
+/* --- SECTION CONTAINER --- */
+.packages-section {
+  position: relative;
+  background: linear-gradient(180deg, #b5fffc, #ffdee9);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- HEADINGS --- */
+.text-center { text-align: center; }
+
+.about-title {
+  font-size: 2.5rem;
+  color: #ff416c;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 4rem;
+}
+
+/* --- GRID LAYOUT --- */
+.packages-grid {
+  display: grid;
+  /* 3 Columns on Laptop, Auto Stack on Mobile */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: center; /* Center cards vertically if heights differ */
+}
+
+/* --- CARD DESIGN --- */
+.package-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+/* === POPULAR CARD (GLOW EFFECT) === */
+.package-card.popular {
+  border: 2px solid #ff416c;
+  background: #fff;
+  transform: scale(1.1); /* Slightly Bigger */
+  box-shadow: 0 0 30px rgba(255, 65, 108, 0.4); /* Glow */
+  z-index: 10;
+}
+
+.package-card.popular:hover {
+  transform: scale(1.15) translateY(-5px);
+  box-shadow: 0 0 50px rgba(255, 65, 108, 0.6); /* Intense Glow */
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  color: white;
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+}
+
+/* --- CARD CONTENT --- */
+.card-header h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+  font-weight: 800;
+}
+
+.plan-subtitle {
+  display: block;
+  font-size: 0.9rem;
+  color: #777;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(0,0,0,0.05);
+  margin: 1.5rem 0;
+}
+
+.price-box { margin-bottom: 1.5rem; }
+
+.currency {
+  font-size: 1.5rem;
+  vertical-align: top;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #222;
+  line-height: 1;
+}
+
+.duration {
+  font-size: 1rem;
+  color: #888;
+  font-weight: 500;
+}
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.feature-list li {
+  margin-bottom: 12px;
+  color: #555;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  color: #ff416c;
+  font-weight: bold;
+}
+
+/* Button */
+.package-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #f4f4f4;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.package-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Popular Button Style */
+.package-card.popular .package-btn {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  color: white;
+  box-shadow: 0 10px 20px rgba(255, 65, 108, 0.3);
+}
+
+.package-card.popular .package-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(255, 65, 108, 0.5);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .packages-grid {
+    grid-template-columns: 1fr; /* One card per row */
+    gap: 3rem;
+  }
+  
+  .package-card.popular {
+    transform: scale(1.05); /* Less zoom on mobile */
+    margin: 1rem 0;
+  }
+  
+  .package-card.popular:hover {
+     transform: scale(1.05);
+  }
+}

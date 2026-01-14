@@ -49,20 +49,21 @@ export default function Gallery() {
   ];
 
   // --- States ---
-  const [isViewMoreOpen, setIsViewMoreOpen] = useState(false);
+  const [viewAllImages, setViewAllImages] = useState(false); // Renamed for clarity
+  const [viewAllVideos, setViewAllVideos] = useState(false); // New state for videos
+
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [reelIndex, setReelIndex] = useState(null);
 
-  // --- Auto Scroll Setup (Images) ---
   const imageScrollRef = useRef(null);
-  const [isImagePaused, setIsImagePaused] = useState(false);
-  const scrollImages = galleryImages.slice(0, 10);
-
-  // --- Auto Scroll Setup (Videos) ---
   const videoScrollRef = useRef(null);
+
+  const [isImagePaused, setIsImagePaused] = useState(false);
   const [isVideoPaused, setIsVideoPaused] = useState(false);
 
-  // Helper Function for Auto Scroll Logic
+  const scrollImages = galleryImages.slice(0, 10);
+
+  // --- Auto Scroll Logic ---
   const setupAutoScroll = (ref, isPaused, speed = 1) => {
     const scrollContainer = ref.current;
     if (!scrollContainer) return;
@@ -71,7 +72,6 @@ export default function Gallery() {
     const scrollStep = () => {
       if (!isPaused) {
         scrollContainer.scrollLeft += speed;
-        // Infinite Loop Logic
         if (
           scrollContainer.scrollLeft + scrollContainer.clientWidth >=
           scrollContainer.scrollWidth - 1
@@ -85,17 +85,15 @@ export default function Gallery() {
     return () => cancelAnimationFrame(animationId);
   };
 
-  // Effect: Image Scroll
   useEffect(() => {
     return setupAutoScroll(imageScrollRef, isImagePaused, 0.5);
   }, [isImagePaused]);
 
-  // Effect: Video Scroll
   useEffect(() => {
     return setupAutoScroll(videoScrollRef, isVideoPaused, 0.5);
   }, [isVideoPaused]);
 
-  // --- Handlers: Image Lightbox ---
+  // --- Lightbox Logic (Images) ---
   const openLightbox = (index) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
@@ -117,7 +115,7 @@ export default function Gallery() {
     [galleryImages.length]
   );
 
-  // --- Handlers: Reels ---
+  // --- Lightbox Logic (Videos) ---
   const openReel = (index) => setReelIndex(index);
   const closeReel = () => setReelIndex(null);
 
@@ -140,6 +138,7 @@ export default function Gallery() {
   // --- Keyboard Events ---
   useEffect(() => {
     const handleKey = (e) => {
+      // Lightboxes
       if (lightboxIndex !== null) {
         if (e.key === "Escape") closeLightbox();
         if (e.key === "ArrowRight") nextImage();
@@ -150,8 +149,13 @@ export default function Gallery() {
         if (e.key === "ArrowRight") nextReel();
         if (e.key === "ArrowLeft") prevReel();
       }
-      if (isViewMoreOpen && lightboxIndex === null && reelIndex === null) {
-        if (e.key === "Escape") setIsViewMoreOpen(false);
+
+      // Modals
+      if (viewAllImages && lightboxIndex === null && reelIndex === null) {
+        if (e.key === "Escape") setViewAllImages(false);
+      }
+      if (viewAllVideos && lightboxIndex === null && reelIndex === null) {
+        if (e.key === "Escape") setViewAllVideos(false);
       }
     };
     window.addEventListener("keydown", handleKey);
@@ -159,7 +163,8 @@ export default function Gallery() {
   }, [
     lightboxIndex,
     reelIndex,
-    isViewMoreOpen,
+    viewAllImages,
+    viewAllVideos,
     nextImage,
     prevImage,
     nextReel,
@@ -170,10 +175,7 @@ export default function Gallery() {
     <section className="zg-section" id="gallery">
       {/* 1. Header Area */}
       <div className="zg-header-wrapper">
-        <span className="zg-tagline">Feel The Vibe</span>
-        <h2 className="zg-title">
-          Capture The <span className="zg-highlight">Energy</span>
-        </h2>
+        <h2 className="about-title">Image Gallery</h2>
         <p className="zg-subtitle">Every beat, every move, captured in time.</p>
       </div>
 
@@ -215,22 +217,22 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* View More Button */}
+      {/* View More Images Button */}
       {galleryImages.length > 0 && (
         <div className="zg-btn-wrapper">
           <button
             className="zg-view-btn"
-            onClick={() => setIsViewMoreOpen(true)}
+            onClick={() => setViewAllImages(true)}
           >
             View All Photos
           </button>
         </div>
       )}
 
-      {/* 3. VIDEO AUTO SCROLL (UPDATED) */}
+      {/* 3. VIDEO AUTO SCROLL */}
       {reelVideos.length > 0 && (
         <div className="zg-reels-section" id="video-gallery">
-          <h3 className="zg-reels-title">Watch Us Move ⚡</h3>
+          <h2 className="about-title">Video Gallery</h2>
 
           {/* Video Scroll Container */}
           <div
@@ -270,19 +272,29 @@ export default function Gallery() {
               ))}
             </div>
           </div>
+
+          {/* View More Videos Button (NEW) */}
+          <div className="zg-btn-wrapper">
+            <button
+              className="zg-view-btn"
+              onClick={() => setViewAllVideos(true)}
+            >
+              View All Videos
+            </button>
+          </div>
         </div>
       )}
 
-      {/* ---------------- MODALS / POPUPS (UNCHANGED) ---------------- */}
+      {/* ---------------- MODALS / POPUPS ---------------- */}
 
-      {/* A. "View More" Modal */}
-      {isViewMoreOpen && (
+      {/* A. "View More" Modal - IMAGES */}
+      {viewAllImages && (
         <div className="zg-modal-grid-overlay">
           <div className="zg-modal-header">
-            <h3 className="about-title">All Memories</h3>
+            <h3 className="ViewModal-title">All Memories</h3>
             <button
               className="zg-close-grid-btn"
-              onClick={() => setIsViewMoreOpen(false)}
+              onClick={() => setViewAllImages(false)}
             >
               ✕
             </button>
@@ -303,7 +315,38 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* B. Image Lightbox */}
+      {/* B. "View More" Modal - VIDEOS (NEW) */}
+      {viewAllVideos && (
+        <div className="zg-modal-grid-overlay">
+          <div className="zg-modal-header">
+            <h3 className="ViewModal-title">All Videos</h3>
+            <button
+              className="zg-close-grid-btn"
+              onClick={() => setViewAllVideos(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="zg-modal-scroll-area">
+            <div className="zg-all-images-grid">
+              {reelVideos.map((vid, idx) => (
+                <div
+                  key={idx}
+                  className="zg-grid-item zg-grid-video-item"
+                  onClick={() => openReel(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* C. Image Lightbox */}
       {lightboxIndex !== null && (
         <div className="zg-lightbox">
           <button className="zg-lb-close" onClick={closeLightbox}>
@@ -324,7 +367,7 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* C. Video Lightbox */}
+      {/* D. Video Lightbox */}
       {reelIndex !== null && (
         <div className="zg-lightbox zg-video-mode">
           <button className="zg-lb-close" onClick={closeReel}>

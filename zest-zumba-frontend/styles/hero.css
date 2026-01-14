@@ -1,0 +1,190 @@
+:root {
+  --z-purple: #4a0e95;
+  --z-pink: #ff0055;
+  --z-neon: #ccff00;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: url('/hero-bg.png') center/cover no-repeat;
+  background-attachment: fixed; 
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(74, 14, 149, 0.7) 0%, 
+    rgba(0, 0, 0, 0.3) 50%, 
+    rgba(74, 14, 149, 0.9) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  padding: 0 20px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.1;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.hero-title .highlight {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--z-neon); 
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title .highlight::before {
+  content: 'RHYTHM';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--z-neon);
+  opacity: 0.3;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: #f0f0f0;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+
+  background: var(--z-neon);
+  color: var(--z-purple);
+  color:black;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4); 
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 40px rgba(204, 255, 0, 0.7);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  padding: 8px 16px ;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 40px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+   height: 45px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: var(--z-purple);
+  border-color: white;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 2;
+  opacity: 0.6;
+  animation: float 10s infinite alternate;
+}
+
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--z-pink);
+  top: 10%;
+  left: -100px;
+}
+
+.circle-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--z-purple);
+  bottom: -50px;
+  right: -100px;
+  animation-delay: 2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, 50px); }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    display: flex;
+    flex-direction: column; 
+    gap: 0px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}

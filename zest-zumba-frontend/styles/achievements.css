@@ -1,0 +1,276 @@
+:root {
+  --za-primary: #ff416c;
+  --za-secondary: #ff4b2b;
+  --za-bg-gradient: linear-gradient(135deg, #fff5f7 0%, #fff 100%);
+  --za-card-bg: rgba(255, 255, 255, 0.9);
+  --za-text-main: #2d3436;
+  --za-text-muted: #636e72;
+}
+
+/* --- Section Layout --- */
+.za-section {
+  position: relative;
+  padding: 4rem;
+  background: linear-gradient(180deg, #b5fffc, #ffdee9);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.za-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Decorative Shapes --- */
+.za-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: 1;
+  opacity: 0.4;
+  animation: floatShape 8s infinite alternate ease-in-out;
+}
+.za-shape-1 {
+  width: 350px; height: 350px;
+  background: rgba(255, 65, 108, 0.2);
+  top: -50px; left: -50px;
+}
+.za-shape-2 {
+  width: 300px; height: 300px;
+  background: rgba(255, 219, 77, 0.25);
+  bottom: -50px; right: -50px;
+  animation-delay: 2s;
+}
+
+@keyframes floatShape {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 30px); }
+}
+
+/* --- Typography --- */
+.za-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.za-tagline {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--za-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 65, 108, 0.08);
+  padding: 6px 16px;
+  border-radius: 50px;
+}
+
+.za-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--za-text-main);
+  margin: 0.5rem 0;
+  line-height: 1.2;
+}
+
+.za-highlight {
+  background: -webkit-linear-gradient(left, var(--za-primary), var(--za-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.za-subtitle {
+  font-size: 1rem;
+  color: var(--za-text-muted);
+  max-width: 600px;
+  margin: 1rem auto 0;
+  line-height: 1.6;
+}
+
+/* --- Stats Grid & Cards --- */
+.za-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem; /* Spacing for bottom strip */
+}
+
+.za-card {
+  background: var(--za-card-bg);
+  padding: 2.5rem 1.5rem;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  backdrop-filter: blur(10px);
+}
+
+.za-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(255, 65, 108, 0.15);
+  border-color: rgba(255, 65, 108, 0.2);
+}
+
+/* Icons & Numbers */
+.za-icon-box {
+  width: 60px; height: 60px;
+  margin: 0 auto 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff0f3 0%, #fff 100%);
+  color: var(--za-primary);
+  box-shadow: 0 5px 15px rgba(255, 65, 108, 0.1);
+  transition: transform 0.4s ease;
+}
+.za-icon-box svg { width: 28px; height: 28px; stroke-width: 2.5px; }
+
+.za-card:hover .za-icon-box {
+  transform: scale(1.1) rotate(10deg);
+  background: var(--za-primary); color: #fff;
+}
+
+.za-number {
+  font-size: 3rem; font-weight: 800; color: var(--za-text-main); margin: 0; line-height: 1;
+}
+
+.za-label {
+  font-size: 1rem; font-weight: 600; color: var(--za-text-muted); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.za-card-decoration {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--za-primary), var(--za-secondary));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.za-card:hover .za-card-decoration { transform: scaleX(1); }
+
+
+/* --- NEW: Bottom Strip (Features & CTA) --- */
+.za-bottom-strip {
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.02);
+  position: relative;
+  z-index: 2;
+}
+
+/* Left Side: Features */
+.za-bs-content {
+  flex: 1;
+}
+
+.za-bs-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--za-text-main);
+  margin-bottom: 1.2rem;
+}
+
+.za-features-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 30px;
+}
+
+.za-feature-item {
+  font-size: 0.95rem;
+  color: var(--za-text-muted);
+  font-weight: 500;
+  display: flex; align-items: center;
+}
+
+.za-check {
+  color: var(--za-primary);
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* Right Side: CTA */
+.za-bs-action {
+  flex: 0 0 320px;
+  text-align: right;
+  padding-left: 3rem;
+  border-left: 1px dashed #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.za-bs-action p {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.za-cta-btn {
+  background: var(--za-primary);
+  background: linear-gradient(90deg, var(--za-primary), var(--za-secondary));
+  color: white;
+  border: none;
+  padding: 14px 35px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 65, 108, 0.3);
+  transition: all 0.3s ease;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.za-cta-btn .arrow { transition: transform 0.3s; }
+
+.za-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(255, 65, 108, 0.4);
+}
+.za-cta-btn:hover .arrow { transform: translateX(5px); }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .za-grid { gap: 1.5rem; grid-template-columns: repeat(3, 1fr); }
+  .za-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+  .za-section { padding: 4rem 1rem; }
+  
+  .za-grid {
+    grid-template-columns: 1fr; /* Stack cards */
+    max-width: 400px; margin: 0 auto 3rem auto;
+  }
+  
+  /* Stack the bottom strip */
+  .za-bottom-strip {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+  
+  .za-features-list {
+    grid-template-columns: 1fr;
+    text-align: left;
+    margin-bottom: 2rem;
+    padding-left: 1rem; 
+  }
+  
+  .za-bs-action {
+    width: 100%;
+    padding: 2rem 0 0 0;
+    border-left: none;
+    border-top: 1px dashed #eee;
+    align-items: center; text-align: center;
+  }
+}

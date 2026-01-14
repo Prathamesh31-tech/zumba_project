@@ -31,7 +31,7 @@ export default function Contact() {
             </div>
             <div>
               <h5>Studio Location</h5>
-              <p>123, SaiNagar, Amravati, Maharashtra</p>
+              <p>Opp Hotel Rangoli Pearl, Nawathe Square, Amravati 444607</p>
             </div>
           </div>
 
@@ -54,7 +54,7 @@ export default function Contact() {
             </div>
             <div>
               <h5>Studio Hours</h5>
-              <p>Mon - Sat: 6:00 AM - 9:00 PM</p>
+              <p>Mon - Sat: 6:00 AM - 6:00 PM</p>
             </div>
           </div>
         </div>
@@ -81,19 +81,7 @@ export default function Contact() {
               <div className="input-group">
                 {/* Date Input */}
                 <input type="date" required className="has-content" />
-                <label className="static-label">Joining Date</label>
-              </div>
-
-              <div className="input-group">
-                {/* Shift Selection */}
-                <select required className="has-content">
-                  <option value="" disabled selected hidden></option>
-                  <option value="morning">Morning (6AM - 9AM)</option>
-                  <option value="evening">Evening (5PM - 8PM)</option>
-                  <option value="weekend">Weekend Batch</option>
-                </select>
-                <label className="static-label">Preferred Shift</label>
-                <FaClock className="field-icon" />
+                <label className="static-label">Appointment Date</label>
               </div>
             </div>
 
@@ -101,10 +89,11 @@ export default function Contact() {
             <div className="input-group">
               <select required className="has-content">
                 <option value="" disabled selected hidden></option>
-                <option value="zumba-fitness">Zumba Fitness (General)</option>
-                <option value="strong">Strong Nation (HIIT)</option>
-                <option value="aqua">Aqua Zumba</option>
-                <option value="kids">Zumba Kids</option>
+                <option value="zumba-fitness">Zumba Female</option>
+                <option value="strong">Zumba Male</option>
+                <option value="aqua">Zumba Kids</option>
+                <option value="kids">personalized Diets Plans</option>
+                <option value="kids">Book Consultation</option>
               </select>
               <label className="static-label">Class Category</label>
               <FaDumbbell className="field-icon" />
@@ -120,6 +109,40 @@ export default function Contact() {
               Send Request <FaPaperPlane className="btn-icon" />
             </button>
           </form>
+        </div>
+      </div>
+
+      <div className="connnect">
+        <h1 style={{ marginBottom: "10px" }}>Connect with Us</h1>
+        <p style={{ marginBottom: "30px" }}>
+          Follow us on social media for the latest updates, promotions, and
+          more.
+        </p>
+        <div className="footer-social">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+          >
+            <img src="/app/facebook.png" alt="FB" />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+          >
+            <img src="/app/instagram.png" alt="Insta" />
+          </a>
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="YouTube"
+          >
+            <img src="/app/youtube.png" alt="YT" />
+          </a>
         </div>
       </div>
     </section>
