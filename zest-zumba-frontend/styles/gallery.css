@@ -15,6 +15,12 @@
   overflow-x: hidden;
 }
 
+
+.gallery-title{
+    font-size: 2.5rem;  color: #ff416c;  font-weight: 800; text-transform: uppercase;
+  position: relative; z-index: 2; text-align: center; margin-top: 2rem;  
+}
+
 /* --- Header --- */
 .zg-header-wrapper {
   text-align: center;
@@ -234,6 +240,9 @@
   .zg-fullscreen-video { width: 100%; height: auto; object-fit: contain;}
   .zg-lb-video-wrapper { height: auto; align-items: center; }
   .zg-all-images-grid { grid-template-columns: repeat(2, 1fr); } /* 2 columns on mobile */
+  .gallery-title{
+    font-size: 2rem; 
+}
 }
 
 .ViewModal-title{

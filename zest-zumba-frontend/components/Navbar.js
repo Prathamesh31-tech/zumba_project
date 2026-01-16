@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -27,7 +24,6 @@ export default function Navbar() {
     { name: "Home", link: "#home" },
     { name: "About", link: "#about" },
     { name: "Packages", link: "#packages" },
-
     {
       name: "Gallery",
       link: "#gallery",
@@ -35,10 +31,9 @@ export default function Navbar() {
       subItems: [
         { name: "Image Gallery", link: "#gallery" },
         { name: "Video Gallery", link: "#video-gallery" },
-        { name: " Testimonials", link: "#testimonials" },
+        { name: "Testimonials", link: "#testimonials" },
       ],
     },
-
     { name: "Contact", link: "#contact" },
   ];
 
@@ -54,6 +49,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
+        {/* ===== DESKTOP LOGO ===== */}
         <a href="#home" className="brand" onClick={() => setIsOpen(false)}>
           <img src="logo.png" alt="Zest Logo" className="brand-logo" />
           <div className="brand-text">
@@ -64,7 +60,21 @@ export default function Navbar() {
           </div>
         </a>
 
+        {/* ===== MENU ===== */}
         <ul className={`nav-menu ${isOpen ? "active" : ""}`}>
+          {/* ===== MOBILE LOGO INSIDE MENU ===== */}
+          <div className="mobile-menu-logo">
+            <a href="#home" className="brand" onClick={() => setIsOpen(false)}>
+              <img src="logo.png" alt="Zest Logo" className="brand-logo" />
+              <div className="brand-text">
+                <span className="brand-title">
+                  Z<span>EST</span>
+                </span>
+                <span className="brand-subtitle">Zumba Studio</span>
+              </div>
+            </a>
+          </div>
+
           {menuItems.map((item, index) => (
             <li
               key={index}
@@ -102,6 +112,7 @@ export default function Navbar() {
           ))}
         </ul>
 
+        {/* ===== HAMBURGER ===== */}
         <div
           className={`hamburger ${isOpen ? "active" : ""}`}
           onClick={() => setIsOpen(!isOpen)}

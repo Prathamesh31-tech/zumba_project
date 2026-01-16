@@ -14,23 +14,21 @@
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 /* --- HEADINGS --- */
 .text-center { text-align: center; }
 
-.about-title {
-  font-size: 2.5rem;
-  color: #ff416c;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
+.package-title{
+    font-size: 2.5rem;  color: #ff416c;  font-weight: 800; text-transform: uppercase;
+  position: relative; z-index: 2; text-align: center; margin-top: 2rem;  
 }
 
 .section-subtitle {
   font-size: 1.1rem;
   color: #555;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
 /* --- GRID LAYOUT --- */
@@ -53,7 +51,8 @@
   transition: all 0.4s ease;
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;align-items: center;
+
 }
 
 .package-card:hover {
@@ -138,8 +137,8 @@
 
 /* Feature List */
 .feature-list {
+  width: 60%;
   list-style: none;
-  padding: 0;
   margin-bottom: 2rem;
   text-align: left;
   flex-grow: 1;
@@ -204,4 +203,12 @@
   .package-card.popular:hover {
      transform: scale(1.05);
   }
+  .package-title{
+    font-size: 1.7rem; 
+    
+}
+.section-subtitle {
+  font-size: 1rem;
+   margin-bottom: 2rem;
+}
 }

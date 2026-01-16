@@ -11,7 +11,7 @@ export default function About() {
       <div className="about-container">
         {/* --- LEFT SIDE: Studio Info --- */}
         <div className="about-left">
-          <h4 className="sub-heading">
+          <h4 className="left-sub-heading {">
             Welcome to Zest Zumba Studio, Amravati
           </h4>
           <h2 className="content-heading">
@@ -34,10 +34,18 @@ export default function About() {
           </p>
 
           <div className="features-list">
-            <div className="feature-item">✅ Certified Instructors</div>
-            <div className="feature-item">✅ 800+ Calories Burn</div>
-            <div className="feature-item">✅ Non-Stop Bollywood & Latin</div>
-            <div className="feature-item">✅ AC Studio & Premium Sound</div>
+            <div className="feature-item">
+              <span>✅</span> Certified Instructors
+            </div>
+            <div className="feature-item">
+              <span>✅</span> 800+ Calories Burn
+            </div>
+            <div className="feature-item">
+              <span>✅</span> Non-Stop Bollywood & Latin
+            </div>
+            <div className="feature-item">
+              <span>✅</span> AC Studio & Premium Sound
+            </div>
           </div>
         </div>
 
@@ -79,14 +87,15 @@ export default function About() {
           <div className="cert-section">
             <h4>Certifications & Awards</h4>
             <div className="cert-grid">
-              <span className="cert-badge">
-                Best Zumba Fitness Trainer ot The Year
-              </span>
+              <span className="cert-badge">Community Zumba Star Award</span>
+              <span className="cert-badge">Zumba Fitness Excellence Award</span>
+
               <span className="cert-badge">
                 Outstanding Zumba Instructor Award
               </span>
-              <span className="cert-badge">Zumba Fitness Excellence Award</span>
-              <span className="cert-badge">Community Zumba Star Award</span>
+              <span className="cert-badge">
+                Best Zumba Fitness Trainer ot The Year
+              </span>
             </div>
           </div>
 
@@ -94,10 +103,10 @@ export default function About() {
           <div className="specialties-section">
             <h4>We Also Offer:</h4>
             <div className="tags-container">
-              <span className="tag">Wedding Sangeet</span>
-              <span className="tag">Corporate Events</span>
               <span className="tag">Kids Batches</span>
               <span className="tag">Garba Workshops</span>
+              <span className="tag">Wedding Sangeet</span>
+              <span className="tag">Corporate Events</span>
               <span className="tag">Daily Diet Plan</span>
               <span className="tag">Online Zumba Workshop</span>
               <span className="tag">Training & Certificate</span>

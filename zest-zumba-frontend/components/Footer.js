@@ -23,7 +23,7 @@ export default function Footer() {
         {/* RIGHT */}
         <div className="footer-right">
           <span>Developed by</span>
-          <img src="/bizonance-logo.jpeg" alt="Bizonance" />
+          <img src="/bizonance-logo.png" alt="Bizonance" />
         </div>
       </div>
     </footer>

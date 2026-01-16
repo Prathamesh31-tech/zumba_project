@@ -9,11 +9,12 @@
   padding: 1rem 2rem;
   position: relative;
   overflow: hidden;
+  padding-bottom: 3rem;
  
 }
 .about-title {
-  font-size: 2rem; color: #e91e63; font-weight: 900; text-transform: uppercase;
-  position: relative; z-index: 2; text-align: center; margin-top: 3rem;
+ font-size: 2.5rem;  color: #ff416c;  font-weight: 800; text-transform: uppercase;
+  position: relative; z-index: 2; text-align: center; margin-top: 2rem;  margin-bottom: 2rem;
 
 }
 
@@ -52,8 +53,8 @@
   justify-content: center;
 }
 
-.sub-heading {
-  margin-left: 10px;
+.left-sub-heading {
+  margin-left: 7px;
   font-size: 1rem; color: #ff416c; text-transform: uppercase; letter-spacing: 2px;
   margin-bottom: 0.5rem; font-weight: 700;
 }
@@ -71,11 +72,13 @@
 }
 
 .about-description {
-  font-size: 1.1rem; color: #555; line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
+  font-size: 1.1rem; color: #555; line-height: 1.7; font-weight: 400; text-align: justify;    
+  padding: 15px 0px;      
+  box-sizing: border-box;
 }
 
 .features-list {
-  display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.8rem;;
 }
 
 .feature-item {
@@ -147,7 +150,7 @@
     padding: 0rem 1.5rem; 
     text-align: center;
     height: auto;
-    padding-bottom: 1rem;
+    padding-bottom: 3rem;
   }
 
 
@@ -175,16 +178,15 @@
   }
 
   .about-description {
-    text-align: center; 
-    padding: 0 10px; 
+    text-align: justify;      /* Left & Right dono side straight */
+    padding: 15px 0px;       /* 4 side equal space */
+    box-sizing: border-box; 
   }
 
 
  
-  .feature-item {
-    justify-content: center; 
+  .feature-item { 
     width: 100%;
-    text-align: center;
   }
 
   .about-right {
@@ -217,4 +219,10 @@
   .cert-grid, .tags-container {
     justify-content: center;
   }
+
+  .left-sub-heading {
+  margin-left: 0;
+  font-size: 12px;
+  
+}
 }

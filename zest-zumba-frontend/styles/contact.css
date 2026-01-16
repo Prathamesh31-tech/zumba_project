@@ -82,6 +82,7 @@
   font-size: 1.3rem;
   box-shadow: 0 10px 25px rgba(255, 65, 108, 0.1);
   transition: all 0.3s ease;
+  padding: 20px;
 }
 
 .info-item:hover .icon-box {
@@ -252,7 +253,6 @@
     text-align: center;
   }
   .info-item {
-    justify-content: center;
     text-align: left;
   }
   .description {

@@ -4,9 +4,6 @@ export default function Trainers() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
 
-  const scrollRef = useRef(null);
-  const [isPaused, setIsPaused] = useState(false);
-
   const trainers = [
     {
       id: 4,
@@ -19,85 +16,12 @@ export default function Trainers() {
     },
   ];
 
-  const marqueeList = [
-    ...trainers,
-    ...trainers,
-    ...trainers,
-    ...trainers,
-    ...trainers,
-    ...trainers,
-  ];
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationFrameId;
-
-    const scrollStep = () => {
-      if (!isPaused) {
-        scrollContainer.scrollLeft += 0.5;
-        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-          scrollContainer.scrollLeft = 0;
-        }
-      }
-      animationFrameId = requestAnimationFrame(scrollStep);
-    };
-
-    animationFrameId = requestAnimationFrame(scrollStep);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused]);
-
-  const handleTrainerChange = (index) => {
-    const realIndex = index % trainers.length;
-
-    if (realIndex === activeIndex) return;
-
-    setAnimate(true);
-    setTimeout(() => {
-      setActiveIndex(realIndex);
-      setAnimate(false);
-    }, 400);
-  };
-
   const activeTrainer = trainers[activeIndex];
-
-  const nextTrainer = () => handleTrainerChange(activeIndex + 1);
-  const prevTrainer = () =>
-    handleTrainerChange(activeIndex - 1 + trainers.length);
 
   return (
     <section className="trainers-immersive">
-      <div className="about-title">Trainer Profile</div>
-      {/* <div
-        className="top-marquee-container"
-        ref={scrollRef}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
-      >
-        <div className="marquee-track">
-          {marqueeList.map((trainer, idx) => {
-            const isActive = idx % trainers.length === activeIndex;
+      <h2 className="trainer-title">Trainer Profile</h2>
 
-            return (
-              <div
-                key={`marquee-${idx}`}
-                className={`marquee-item ${isActive ? "active" : ""}`}
-                onClick={() => handleTrainerChange(idx)}
-                style={isActive ? { borderColor: trainer.color } : {}}
-              >
-                <img src={trainer.image} alt={trainer.name} />
-                <span className="thumb-name">{trainer.name}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div> */}
-
-      {/* 2. BACKGROUND GLOW */}
       <div
         className="bg-glow-spot"
         style={{
@@ -105,12 +29,13 @@ export default function Trainers() {
         }}
       ></div>
 
-      {/* 3. MAIN DETAILS */}
-      <div className=" immersive-container" style={{ marginTop: "5rem" }}>
+      <div className="immersive-container">
         <div className={`info-side ${animate ? "fade-out" : "fade-in"}`}>
           <h1 className="trainer-name">{activeTrainer.name}</h1>
           <h2>{activeTrainer.specialty}</h2>
-          <p style={{ marginBottom: "10px" }}>5+ Year Experience</p>
+          <p style={{ marginBottom: "10px", fontWeight: "600" }}>
+            5+ Years Experience
+          </p>
           <p className="trainer-desc">{activeTrainer.description}</p>
         </div>
 
@@ -142,13 +67,6 @@ export default function Trainers() {
           </div>
         </div>
       </div>
-
-      {/* <button className="nav-arrow left-arrow" onClick={prevTrainer}>
-        ❮
-      </button>
-      <button className="nav-arrow right-arrow" onClick={nextTrainer}>
-        ❯
-      </button> */}
     </section>
   );
 }

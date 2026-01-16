@@ -120,20 +120,20 @@ export default function Contact() {
         </p>
         <div className="footer-social">
           <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Facebook"
-          >
-            <img src="/app/facebook.png" alt="FB" />
-          </a>
-          <a
             href="https://instagram.com"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
           >
             <img src="/app/instagram.png" alt="Insta" />
+          </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+          >
+            <img src="/app/facebook.png" alt="FB" />
           </a>
           <a
             href="https://youtube.com"

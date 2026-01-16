@@ -36,7 +36,7 @@ export default function Gallery() {
   ];
 
   const reelVideos = [
-    "https://res.cloudinary.com/dapveboee/video/upload/v1767861996/WhatsApp_Video_2026-01-08_at_13.52.29_uyyhdz_7ec563.mp4",
+    "https://www.instagram.com/reel/DTaYu--DM4F/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860930/koi_j7uvli.mp4",
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860938/WhatsApp_Video_2026-01-08_at_13.53.09_bk0kql.mp4",
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860936/WhatsApp_Video_2026-01-08_at_13.53.08_unajvi.mp4",
@@ -46,6 +46,11 @@ export default function Gallery() {
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860932/WhatsApp_Video_2026-01-08_at_13.53.07_r54qlx.mp4",
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860931/radhta_xqvajw.mp4",
     "https://res.cloudinary.com/dapveboee/video/upload/v1767860936/WhatsApp_Video_2026-01-08_at_13.52.23_tyrxrh.mp4",
+  ];
+  const testimonialVideos = [
+    "https://res.cloudinary.com/dapveboee/video/upload/v1768549654/WhatsApp_Video_2026-01-16_at_13.15.32_p6mv6g.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1768549654/WhatsApp_Video_2026-01-16_at_13.15.32_p6mv6g.mp4",
+    "https://res.cloudinary.com/dapveboee/video/upload/v1768549654/WhatsApp_Video_2026-01-16_at_13.15.32_p6mv6g.mp4",
   ];
 
   // --- States ---
@@ -62,38 +67,74 @@ export default function Gallery() {
   const [isVideoPaused, setIsVideoPaused] = useState(false);
 
   const scrollImages = galleryImages.slice(0, 10);
+  const [viewAllTestimonials, setViewAllTestimonials] = useState(false);
+  const [testimonialIndex, setTestimonialIndex] = useState(null);
+
+  const testimonialScrollRef = useRef(null);
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
 
   // --- Auto Scroll Logic ---
-  const setupAutoScroll = (ref, isPaused, speed = 1) => {
+  const setupAutoScroll = (ref, isPaused, speed = 0.5) => {
     const scrollContainer = ref.current;
     if (!scrollContainer) return;
 
     let animationId;
+    let currentScroll = scrollContainer.scrollLeft; // ✅ FLOAT accumulator
+
     const scrollStep = () => {
       if (!isPaused) {
-        scrollContainer.scrollLeft += speed;
+        currentScroll += speed; // can be 0.1, 0.05, etc
+        scrollContainer.scrollLeft = currentScroll;
+
         if (
           scrollContainer.scrollLeft + scrollContainer.clientWidth >=
           scrollContainer.scrollWidth - 1
         ) {
+          currentScroll = 0;
           scrollContainer.scrollLeft = 0;
         }
       }
       animationId = requestAnimationFrame(scrollStep);
     };
+
     animationId = requestAnimationFrame(scrollStep);
     return () => cancelAnimationFrame(animationId);
   };
 
   useEffect(() => {
-    return setupAutoScroll(imageScrollRef, isImagePaused, 0.5);
+    return setupAutoScroll(imageScrollRef, isImagePaused, 0.4);
   }, [isImagePaused]);
 
   useEffect(() => {
-    return setupAutoScroll(videoScrollRef, isVideoPaused, 0.5);
+    return setupAutoScroll(videoScrollRef, isVideoPaused, 0.4);
   }, [isVideoPaused]);
 
+  useEffect(() => {
+    return setupAutoScroll(testimonialScrollRef, isTestimonialPaused, 0.4);
+  }, [isTestimonialPaused]);
+
   // --- Lightbox Logic (Images) ---
+  const openTestimonial = (index) => setTestimonialIndex(index);
+  const closeTestimonial = () => setTestimonialIndex(null);
+
+  const nextTestimonial = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setTestimonialIndex((prev) => (prev + 1) % testimonialVideos.length);
+    },
+    [testimonialVideos.length]
+  );
+
+  const prevTestimonial = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setTestimonialIndex((prev) =>
+        prev === 0 ? testimonialVideos.length - 1 : prev - 1
+      );
+    },
+    [testimonialVideos.length]
+  );
+
   const openLightbox = (index) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
@@ -175,7 +216,7 @@ export default function Gallery() {
     <section className="zg-section" id="gallery">
       {/* 1. Header Area */}
       <div className="zg-header-wrapper">
-        <h2 className="about-title">Image Gallery</h2>
+        <h2 className="gallery-title">Image Gallery</h2>
         <p className="zg-subtitle">Every beat, every move, captured in time.</p>
       </div>
 
@@ -232,7 +273,7 @@ export default function Gallery() {
       {/* 3. VIDEO AUTO SCROLL */}
       {reelVideos.length > 0 && (
         <div className="zg-reels-section" id="video-gallery">
-          <h2 className="about-title">Video Gallery</h2>
+          <h2 className="gallery-title">Video Gallery</h2>
 
           {/* Video Scroll Container */}
           <div
@@ -280,6 +321,61 @@ export default function Gallery() {
               onClick={() => setViewAllVideos(true)}
             >
               View All Videos
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= TESTIMONIAL REELS SECTION ================= */}
+      {testimonialVideos.length > 0 && (
+        <div className="zg-reels-section" id="testimonials">
+          <h2 className="gallery-title">Client Testimonials</h2>
+
+          <div
+            className="zg-video-scroll-container"
+            ref={testimonialScrollRef}
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+            onTouchStart={() => setIsTestimonialPaused(true)}
+            onTouchEnd={() => setIsTestimonialPaused(false)}
+          >
+            <div className="zg-scroll-track">
+              {/* Originals */}
+              {testimonialVideos.map((vid, idx) => (
+                <div
+                  key={idx}
+                  className="zg-reel-card"
+                  onClick={() => openTestimonial(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+
+              {/* Duplicates for infinite scroll */}
+              {testimonialVideos.map((vid, idx) => (
+                <div
+                  key={`dup-test-${idx}`}
+                  className="zg-reel-card"
+                  onClick={() => openTestimonial(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="zg-btn-wrapper">
+            <button
+              className="zg-view-btn"
+              onClick={() => setViewAllTestimonials(true)}
+            >
+              View All Testimonials
             </button>
           </div>
         </div>
@@ -345,6 +441,35 @@ export default function Gallery() {
           </div>
         </div>
       )}
+      {viewAllTestimonials && (
+        <div className="zg-modal-grid-overlay">
+          <div className="zg-modal-header">
+            <h3 className="ViewModal-title">All Testimonials</h3>
+            <button
+              className="zg-close-grid-btn"
+              onClick={() => setViewAllTestimonials(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="zg-modal-scroll-area">
+            <div className="zg-all-images-grid">
+              {testimonialVideos.map((vid, idx) => (
+                <div
+                  key={idx}
+                  className="zg-grid-item zg-grid-video-item"
+                  onClick={() => openTestimonial(idx)}
+                >
+                  <video muted playsInline className="zg-reel-thumb">
+                    <source src={`${vid}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="zg-play-icon">▶</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* C. Image Lightbox */}
       {lightboxIndex !== null && (
@@ -388,6 +513,36 @@ export default function Gallery() {
             </video>
           </div>
           <button className="zg-lb-nav right" onClick={nextReel}>
+            ❯
+          </button>
+        </div>
+      )}
+
+      {testimonialIndex !== null && (
+        <div className="zg-lightbox zg-video-mode">
+          <button className="zg-lb-close" onClick={closeTestimonial}>
+            ✕
+          </button>
+          <button className="zg-lb-nav left" onClick={prevTestimonial}>
+            ❮
+          </button>
+
+          <div className="zg-lb-video-wrapper">
+            <video
+              controls
+              autoPlay
+              playsInline
+              className="zg-fullscreen-video"
+              key={testimonialIndex}
+            >
+              <source
+                src={testimonialVideos[testimonialIndex]}
+                type="video/mp4"
+              />
+            </video>
+          </div>
+
+          <button className="zg-lb-nav right" onClick={nextTestimonial}>
             ❯
           </button>
         </div>

@@ -9,10 +9,10 @@ export default function Packages() {
       price: 1000,
       period: "/month",
       features: [
-        "Daily Classes",
+        "Daily Workout Session",
         "Cardio + Zumba",
-        "Diet Plan Included",
-        "Health Tips",
+        "personilized Diet Plans",
+        "BMI Checkup",
         "Personal Guide",
       ],
       highlight: false,
@@ -23,10 +23,10 @@ export default function Packages() {
       price: 5500, // (1500 * 6 = 9000, here 7500 means save 1500)
       period: "/6 months",
       features: [
-        "Daily Classes",
+        "Daily Workout Session",
         "Cardio + Zumba",
-        "Diet Plan Included",
-        "Health Tips",
+        "personilized Diet Plans",
+        "BMI Checkup",
         "Personal Guide",
       ],
       highlight: true, // This will be the Popular GLOW Card
@@ -37,10 +37,10 @@ export default function Packages() {
       price: 10000, // Best Value
       period: "/year",
       features: [
-        "Daily Classes",
+        "Daily Workout Session",
         "Cardio + Zumba",
-        "Diet Plan Included",
-        "Health Tips",
+        "personilized Diet Plans",
+        "BMI Checkup",
         "Personal Guide",
       ],
       highlight: false,
@@ -50,7 +50,7 @@ export default function Packages() {
   return (
     <section className="packages-section" id="packages">
       <div className="content-wrapper">
-        <h2 className="about-title text-center">Membership Plans</h2>
+        <h2 className="package-title">Membership Plans</h2>
         <p className="section-subtitle text-center">
           Invest in your health. Choose the rhythm that fits you.
         </p>
